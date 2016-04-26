@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="AgentSmith.Options.CustomDictionariesOptionsUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Controls="clr-namespace:JetBrains.UI.Controls;assembly=JetBrains.Platform.UI"
+             mc:Ignorable="d" d:DesignHeight="246" d:DesignWidth="339">
+    <Grid >
+        <Label Content="User Dictionaries:" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label3" VerticalAlignment="Top" />
+        <ListView Margin="12,46,95,12" Name="lstCustomDictionaries" />
+        <Button Content="Add" Margin="0,46,12,0" Name="btnAdd" HorizontalAlignment="Right" Width="75" Height="23" VerticalAlignment="Top" />
+        <Button Content="Edit" Height="23" Margin="0,75,12,0" Name="btnEdit" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=lstCustomDictionaries, Path=SelectedValue}" Value="{x:Null}">
+                            <Setter Property="Button.IsEnabled" Value="false"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Content="Delete" Height="23" Margin="0,104,12,0" Name="btnDelete" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=lstCustomDictionaries, Path=SelectedValue}" Value="{x:Null}">
+                            <Setter Property="Button.IsEnabled" Value="false"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+    </Grid>
+</UserControl>

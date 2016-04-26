@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="AgentSmith.Options.XmlDocumentationOptionsUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:JetBrains.UI.Controls;assembly=JetBrains.Platform.UI"
+             xmlns:Options="clr-namespace:AgentSmith.Options"
+             mc:Ignorable="d" 
+             d:DesignHeight="528" d:DesignWidth="588">
+    <Grid>
+        <Label Content="Spell check dictionary name/s (use commas to separate):" Height="28" Margin="12,12,15,0" Name="label1" VerticalAlignment="Top" />
+        <TextBox Height="23" Margin="12,43,12,0" Name="txtDictionaryName" VerticalAlignment="Top" />
+        <Label Content="Maximum characters per line:" Height="28" HorizontalAlignment="Left" Margin="12,110,0,0" Name="label2" VerticalAlignment="Top" />
+        <Options:IntegerTextBox Height="23" Margin="192,112,15,0" x:Name="txtMaxCharsPerLine" VerticalAlignment="Top"/>
+        <Label Content="Regular Expression patterns to ignore while spell checking (use new lines to separate):" Height="28" Margin="14,144,15,0" Name="label3" VerticalAlignment="Top" />
+        <TextBox Margin="14,178,10,0" Name="txtWordsToIgnore" AcceptsReturn="True" Height="116" VerticalAlignment="Top" />
+        <CheckBox Content="Suppress missing comment errors if base identifier has a comment?" Height="16" Margin="14,79,12,0" Name="chkSuppressIfBaseHasComment" VerticalAlignment="Top" />
+        <Label Content="Regular Expression patterns to ignore for metatagging (use new lines to separate):" Height="28" Margin="12,300,15,0" Name="label4" VerticalAlignment="Top" />
+        <TextBox AcceptsReturn="True" Margin="12,334,15,12" Name="txtWordsToIgnoreForMetatagging" />
+    </Grid>
+</UserControl>

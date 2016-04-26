@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<actions>
+  <!--<action id="AgentSmith.SmartPaste" text="Smart Paste" shortcut="Shift+Alt+Insert" />
+  <insert group-id="Resharper" position="last">
+    <separator />
+    <action-ref id="AgentSmith.SmartPaste" />
+  </insert> -->
+
+  <action id="AgentSmith.Reflow" text="Reflow XML-Doc Comments" />
+  <action id="AgentSmith.ReflowAndRetag" text="Reflow And Retag XML-Doc Comments" />
+  <insert group-id="ReSharper.Tools" position="last">
+    <separator />
+    <action-ref id="AgentSmith.Reflow" />
+    <action-ref id="AgentSmith.ReflowAndRetag" />
+  </insert>
+</actions>
+
+
+

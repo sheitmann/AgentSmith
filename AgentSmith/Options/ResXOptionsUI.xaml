@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="AgentSmith.Options.ResXOptionsUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:JetBrains.UI.Controls;assembly=JetBrains.Platform.UI"
+             xmlns:Options="clr-namespace:AgentSmith.Options"
+             mc:Ignorable="d" 
+             d:DesignHeight="297" d:DesignWidth="398">
+    <Grid>
+        <Label Content="Spell check dictionary name/s (use commas to separate):" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" />
+        <TextBox Height="23" Margin="12,43,12,0" Name="txtDictionaryName" VerticalAlignment="Top" />
+        <Label Content="Regular Expression patterns to ignore (use new lines to separate):" Height="28" HorizontalAlignment="Left" Margin="14,72,0,0" Name="label3" VerticalAlignment="Top" />
+        <TextBox Margin="14,106,10,12" Name="txtWordsToIgnore" AcceptsReturn="True" />
+    </Grid>
+</UserControl>

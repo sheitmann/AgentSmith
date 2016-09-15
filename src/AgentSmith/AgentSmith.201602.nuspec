@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>ReSharper.AgentSmith</id>
-		<version>2016.2.1-rc</version>
+		<version>2016.2.2</version>
 		<title>Agent Smith</title>
 		<authors>Sven Heitmann</authors>
 		<owners>Sven Heitmann</owners>
@@ -12,6 +12,9 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Provides spell checking and Xml documentation assistance tools.</description>
 		<releaseNotes>
+			### 2016.2.2 ###
+			- Initial release for R#2016.2 Release
+			
 			### 2016.2.1 RC ###
 			- Support for interpolated strings added
 

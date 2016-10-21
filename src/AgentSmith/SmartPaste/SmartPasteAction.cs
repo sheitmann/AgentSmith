@@ -22,7 +22,6 @@ using JetBrains.UI.RichText;
 using JetBrains.Util.dataStructures.TypedIntrinsics;
 using JetBrains.Util.Logging;
 
-using DataConstants = JetBrains.ProjectModel.DataContext.DataConstants;
 using MessageBox = JetBrains.Util.MessageBox;
 
 namespace AgentSmith.SmartPaste

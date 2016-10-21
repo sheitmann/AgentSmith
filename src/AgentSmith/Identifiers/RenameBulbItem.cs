@@ -7,16 +7,11 @@ using JetBrains.ProjectModel;
 using JetBrains.ProjectModel.DataContext;
 using JetBrains.ReSharper.Feature.Services.Bulbs;
 using JetBrains.ReSharper.Feature.Services.Refactorings.Specific.Rename;
-using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.DataContext;
-using JetBrains.ReSharper.Psi.Services;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.Refactorings.Function2Property;
-using JetBrains.ReSharper.Refactorings.Rename;
 using JetBrains.TextControl;
 using JetBrains.TextControl.DataContext;
-using DataConstants = JetBrains.ReSharper.Psi.Services.DataConstants;
-using ShellComponentsEx = JetBrains.ActionManagement.ShellComponentsEx;
 
 namespace AgentSmith.Identifiers
 {

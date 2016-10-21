@@ -9,6 +9,7 @@ using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.Util;
 
+#if RESHARPER20161 || RESHARPER20162
 [assembly: RegisterConfigurableSeverity(
     StringSpellCheckHighlighting.SEVERITY_ID,
     null,
@@ -17,6 +18,15 @@ using JetBrains.Util;
     "String literal word is not in dictionary",
     Severity.SUGGESTION,
     false)]
+#else
+[assembly: RegisterConfigurableSeverity(
+    StringSpellCheckHighlighting.SEVERITY_ID,
+    null,
+    HighlightingGroupIds.CodeSmell,
+    "String literal word is not in dictionary",
+    "String literal word is not in dictionary",
+    Severity.SUGGESTION)]
+#endif
 
 namespace AgentSmith.Strings
 {

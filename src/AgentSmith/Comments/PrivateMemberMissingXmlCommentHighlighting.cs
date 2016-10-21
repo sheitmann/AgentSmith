@@ -6,6 +6,7 @@ using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.Tree;
 
+#if RESHARPER20161 || RESHARPER20162
 [assembly: RegisterConfigurableSeverity(
     PrivateMemberMissingXmlCommentHighlighting.SEVERITY_ID,
     null,
@@ -14,6 +15,15 @@ using JetBrains.ReSharper.Psi.Tree;
     "Private members should have XML documentation",
     Severity.SUGGESTION,
     false)]
+#else
+[assembly: RegisterConfigurableSeverity(
+    PrivateMemberMissingXmlCommentHighlighting.SEVERITY_ID,
+    null,
+    HighlightingGroupIds.CodeSmell,
+    "Private members should have XML documentation",
+    "Private members should have XML documentation",
+    Severity.SUGGESTION)]
+#endif
 
 namespace AgentSmith.Comments
 {

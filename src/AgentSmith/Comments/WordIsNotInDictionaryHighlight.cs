@@ -8,6 +8,7 @@ using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi.CSharp;
 
+#if RESHARPER20161 || RESHARPER20162
 [assembly: RegisterConfigurableSeverity(
     WordIsNotInDictionaryHighlight.SEVERITY_ID,
     null,
@@ -16,6 +17,15 @@ using JetBrains.ReSharper.Psi.CSharp;
     "Word is not in the dictionary",
     Severity.SUGGESTION,
     false)]
+#else
+[assembly: RegisterConfigurableSeverity(
+    WordIsNotInDictionaryHighlight.SEVERITY_ID,
+    null,
+    HighlightingGroupIds.CodeSmell,
+    "Word is not in the dictionary",
+    "Word is not in the dictionary",
+    Severity.SUGGESTION)]
+#endif
 
 namespace AgentSmith.Comments
 {

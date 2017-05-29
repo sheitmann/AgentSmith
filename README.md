@@ -46,7 +46,7 @@ Agent Smith performs spell checking of
 * XML comments
 * C# string literals
 * C# identifiers. Identifiers are split by camel humps and checked against dictionary.
-* Resource files (it can automatically choose appropriate dictinary depending on resource file extension) and suggests quick fixes (Word suggestions, Replace with
+* Resource files (it can automatically choose appropriate dictionary depending on resource file extension) and suggests quick fixes (Word suggestions, Replace with
 
 Open Office dictionaries can be imported so a few languages are virtually supported.
 

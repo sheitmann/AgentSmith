@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 using JetBrains.ActionManagement;
 
 // General Information about an assembly is controlled through the following 
@@ -13,8 +13,8 @@ using JetBrains.ActionManagement;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("2016.3.2.0")]
-[assembly: AssemblyFileVersion("2016.3.2.0")]
+[assembly: AssemblyVersion("2017.1.1.0")]
+[assembly: AssemblyFileVersion("2017.1.1.0")]
 
 //[assembly: ActionsXml("AgentSmith.Actions.xml")]
 

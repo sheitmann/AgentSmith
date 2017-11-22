@@ -4,7 +4,11 @@ using System.Text.RegularExpressions;
 using AgentSmith.SpellCheck.NetSpell;
 
 using JetBrains.Application.Settings;
+
+#if !RESHARPER20172
 using JetBrains.Application.Settings.Store;
+#endif
+
 using JetBrains.ReSharper.Psi.Caches;
 using JetBrains.ReSharper.Resources.Settings;
 
@@ -32,9 +36,15 @@ namespace AgentSmith.Options
         private string _wordsToIgnoreForMetatagging;
 
         private List<Regex> _cachedWordsToIgnoreForMetatagging;
-        
 
-        [SettingsEntry("en-US", "The dictionary/s to use for xml documentation comments in source code files (use commas to separate dictionary names)")]
+	    private bool _projectNamesToIgnoreChanged = true;
+
+	    private string _projectNamesToIgnore;
+
+	    private List<Regex> _cachedProjectNamesToIgnore;
+
+
+		[SettingsEntry("en-US", "The dictionary/s to use for xml documentation comments in source code files (use commas to separate dictionary names)")]
         public string DictionaryName { get; set; }
 
         public string[] DictionaryNames
@@ -81,39 +91,65 @@ namespace AgentSmith.Options
             }
         }
 
-        [SettingsEntry("", "Regular expressions for identifiers to ignore as for metatags (separate with new lines)")]
-        public string WordsToIgnoreForMetatagging
-        {
-            get { return _wordsToIgnoreForMetatagging; }
+        [SettingsEntry("", "Regular Expression patterns for the name of projects to ignore (separate with new lines)")]
+        public string ProjectNamesToIgnore{
+            get { return _projectNamesToIgnore; }
             set
             {
-                _wordsToIgnoreForMetataggingChanged = true;
-                _wordsToIgnoreForMetatagging = value;
+				_projectNamesToIgnoreChanged = true;
+				_projectNamesToIgnore = value;
             }
         }
 
-        public List<Regex> CompiledWordsToIgnoreForMetatagging
-        {
+        public List<Regex> CompiledProjectNamesToIgnore {
             get
             {
-                if (_wordsToIgnoreForMetataggingChanged)
+                if (_projectNamesToIgnoreChanged)
                 {
-                    _cachedWordsToIgnoreForMetatagging = new List<Regex>();
-                    string[] regexPatterns = _wordsToIgnoreForMetatagging.Replace("\r", "").Split('\n');
+					_cachedProjectNamesToIgnore = new List<Regex>();
+                    string[] regexPatterns = _projectNamesToIgnore.Replace("\r", "").Split('\n');
 
                     foreach (string regexPattern in regexPatterns)
                     {
                         if (string.IsNullOrEmpty(regexPattern)) continue;
                         Regex re = new Regex(regexPattern);
-                        _cachedWordsToIgnoreForMetatagging.Add(re);
+						_cachedProjectNamesToIgnore.Add(re);
                     }
-                    _wordsToIgnoreForMetataggingChanged = false;
+					_projectNamesToIgnoreChanged = false;
                 }
-                return this._cachedWordsToIgnoreForMetatagging;
+                return this._cachedProjectNamesToIgnore;
             }
         }
 
-    }
+	    [SettingsEntry("", "Regular expressions for identifiers to ignore as for metatags (separate with new lines)")]
+	    public string WordsToIgnoreForMetatagging {
+		    get { return _wordsToIgnoreForMetatagging; }
+		    set {
+			    _wordsToIgnoreForMetataggingChanged = true;
+			    _wordsToIgnoreForMetatagging = value;
+		    }
+	    }
+
+	    public List<Regex> CompiledWordsToIgnoreForMetatagging {
+		    get {
+			    if (_wordsToIgnoreForMetataggingChanged)
+			    {
+				    _cachedWordsToIgnoreForMetatagging = new List<Regex>();
+				    string[] regexPatterns = _wordsToIgnoreForMetatagging.Replace("\r", "").Split('\n');
+
+				    foreach (string regexPattern in regexPatterns)
+				    {
+					    if (string.IsNullOrEmpty(regexPattern)) continue;
+					    Regex re = new Regex(regexPattern);
+					    _cachedWordsToIgnoreForMetatagging.Add(re);
+				    }
+				    _wordsToIgnoreForMetataggingChanged = false;
+			    }
+			    return this._cachedWordsToIgnoreForMetatagging;
+		    }
+	    }
+
+	}
 
     public enum WhitespaceTriState
     {

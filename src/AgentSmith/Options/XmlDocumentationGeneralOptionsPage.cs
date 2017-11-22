@@ -7,6 +7,15 @@ using JetBrains.UI.Application;
 using JetBrains.UI.Options;
 using JetBrains.UI.Options.Helpers;
 
+#if RESHARPER20172
+using JetBrains.Application.UI.Components;
+using JetBrains.Application.UI.Options;
+using JetBrains.Application.UI.Options.OptionPages;
+using JetBrains.Application.UI.UIAutomation;
+#else
+using JetBrains.UI.Options.OptionPages.ToolsPages;
+#endif
+
 namespace AgentSmith.Options {
 	[OptionsPage(PID, "General", typeof(OptionsThemedIcons.SamplePage), ParentId = XmlDocumentationOptionsPage.PID)]
 	public class XmlDocumentationGeneralOptionsPage : AOptionsPage {
@@ -33,6 +42,8 @@ namespace AgentSmith.Options {
 				lifetime, x => x.WordsToIgnore, _optionsUI.txtWordsToIgnore, TextBox.TextProperty);
 			settingsSmartContext.SetBinding<XmlDocumentationSettings, string>(
 				lifetime, x => x.WordsToIgnoreForMetatagging, _optionsUI.txtWordsToIgnoreForMetatagging, TextBox.TextProperty);
+			settingsSmartContext.SetBinding<XmlDocumentationSettings, string>(
+				lifetime, x => x.ProjectNamesToIgnore, _optionsUI.txtProjectNamesToIgnore, TextBox.TextProperty);
 
 		}
 	}

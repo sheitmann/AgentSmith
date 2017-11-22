@@ -119,8 +119,6 @@ namespace AgentSmith
         public void Execute(Action<DaemonStageResult> commiter)
         {
 
-			var consumer = new DefaultHighlightingConsumer(this, _settingsStore);  
-
             IFile file = _daemonProcess.SourceFile.GetTheOnlyPsiFile(CSharpLanguage.Instance);
             if (file == null)
             {
@@ -135,7 +133,13 @@ namespace AgentSmith
             CommentAnalyzer commentAnalyzer = new CommentAnalyzer(_solution, _settingsStore);
             IdentifierSpellCheckAnalyzer identifierAnalyzer = new IdentifierSpellCheckAnalyzer(_solution, _settingsStore, _daemonProcess.SourceFile);
 
-	        foreach (var classMemberDeclaration in file.Descendants<IClassMemberDeclaration>()) {
+#if RESHARPER20173
+	        var consumer = new DefaultHighlightingConsumer(_daemonProcess.SourceFile);
+#else
+			var consumer = new DefaultHighlightingConsumer(this, _settingsStore);  
+#endif
+			
+			foreach (var classMemberDeclaration in file.Descendants<IClassMemberDeclaration>()) {
 		        CheckMember(classMemberDeclaration, consumer, commentAnalyzer, identifierAnalyzer);
 	        }
 

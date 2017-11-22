@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-using JetBrains.ActionManagement;
+
 using JetBrains.Application.DataContext;
 using JetBrains.DataFlow;
 using JetBrains.ProjectModel;
@@ -9,9 +9,19 @@ using JetBrains.ReSharper.Feature.Services.Bulbs;
 using JetBrains.ReSharper.Feature.Services.Refactorings.Specific.Rename;
 using JetBrains.ReSharper.Psi.DataContext;
 using JetBrains.ReSharper.Psi.Tree;
-using JetBrains.ReSharper.Refactorings.Function2Property;
 using JetBrains.TextControl;
 using JetBrains.TextControl.DataContext;
+
+#if RESHARPER20172
+using JetBrains.Application.UI.ActionsRevised.Menu;
+using JetBrains.Application.UI.Actions;
+using JetBrains.Application.UI.Actions.ActionManager;
+using JetBrains.ReSharper.Refactorings.Convert.Function2Property;
+
+#else
+using JetBrains.ReSharper.Refactorings.Function2Property;
+using JetBrains.ActionManagement;
+#endif
 
 namespace AgentSmith.Identifiers
 {
@@ -55,11 +65,17 @@ namespace AgentSmith.Identifiers
                 );
             */
             if (_targetName != null)
-            provider.AddRule(
+#if RESHARPER20172
+	            provider.AddRule(
+		            "ManualRenameRefactoringItem",
+		            RenameRefactoringService.RenameDataProvider, new RenameDataProvider(_targetName));
+#else
+				provider.AddRule(
                 "ManualRenameRefactoringItem",
                 RenameRefactoringService.RenameDataProvider, new SimpleRenameDataProvider(_targetName));
+#endif
 
-	        Lifetimes.Using(
+			Lifetimes.Using(
 		        (lifetime => {
 			        var actionManager = solution.GetComponent<IActionManager>();
 			        var context = actionManager.DataContexts.CreateWithDataRules(lifetime, provider);

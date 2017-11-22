@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Tree;
@@ -7,7 +8,8 @@ namespace AgentSmith.MemberMatch
 {
     public static class ComplexMatchEvaluator
     {
-        public static Match IsMatch(IDeclaration decl, Match[] matches, Match[] notMatches, bool useEffectiveRights)
+	    [CanBeNull]
+	    public static Match IsMatch(IDeclaration decl, [CanBeNull] Match[] matches, [CanBeNull] Match[] notMatches, bool useEffectiveRights)
         {
             if (matches == null)
             {

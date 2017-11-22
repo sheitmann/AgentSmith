@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 using AgentSmith.MemberMatch;
 using AgentSmith.Options;
 using AgentSmith.SpellCheck;
 using AgentSmith.SpellCheck.NetSpell;
-
+using JetBrains.Annotations;
 using JetBrains.Application.Settings;
 using JetBrains.DocumentModel;
 using JetBrains.ProjectModel;
@@ -15,6 +16,7 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Parsing;
 using JetBrains.ReSharper.Psi.Tree;
+using Match = AgentSmith.MemberMatch.Match;
 
 namespace AgentSmith.Comments
 {
@@ -60,7 +62,7 @@ namespace AgentSmith.Comments
 
 
 
-        public void CheckCommentSpelling(IClassMemberDeclaration decl, IDocCommentBlock docNode,
+        public void CheckCommentSpelling(IClassMemberDeclaration decl, [CanBeNull] IDocCommentBlock docNode,
                                   DefaultHighlightingConsumer consumer, bool spellCheck)
         {
 
@@ -190,7 +192,7 @@ namespace AgentSmith.Comments
         /// <param name="declaration">The declaration to check</param>
         /// <param name="docNode">The documentation node to check.</param>
         /// <param name="consumer">The list of highlights (errors) that were found - add to this any new issues</param>
-        public void CheckMemberHasComment(IClassMemberDeclaration declaration, XmlNode docNode,
+        public void CheckMemberHasComment(IClassMemberDeclaration declaration, [CanBeNull] XmlNode docNode,
                                                 DefaultHighlightingConsumer consumer)
         {
 
@@ -206,7 +208,13 @@ namespace AgentSmith.Comments
 
             if (docNode != null) return;
 
-            Match[] publicMembers = new[]
+			//check if project should be ignored
+			
+			if (ShouldIgnoreProject(declaration.GetProject()?.Name)) {
+		        return;
+	        }
+			
+			Match[] publicMembers = new[]
                 {
                     new Match(
                         Declaration.Any, AccessLevels.Public | AccessLevels.Protected | AccessLevels.ProtectedInternal)
@@ -242,5 +250,20 @@ namespace AgentSmith.Comments
             }
         }
 
-    }
+	    private bool ShouldIgnoreProject([CanBeNull] string projectName)
+	    {
+		    if (string.IsNullOrEmpty(projectName))
+		    {
+			    return false;
+		    }
+
+		    foreach (Regex re in _xmlDocumentationSettings.CompiledProjectNamesToIgnore)
+		    {
+			    if (re.IsMatch(projectName))
+					return true;
+		    }
+		    return false;
+	    }
+
+	}
 }

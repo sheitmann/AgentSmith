@@ -1,14 +1,22 @@
-using JetBrains.ActionManagement;
+
 using JetBrains.Application;
 using JetBrains.Application.DataContext;
+
 using JetBrains.ProjectModel;
 using JetBrains.ProjectModel.DataContext;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.Resources.Shell;
-using JetBrains.UI.ActionsRevised;
 using JetBrains.Util;
+
+#if RESHARPER20172
+using JetBrains.Application.UI.ActionsRevised.Menu;
+using JetBrains.Application.UI.Actions;
+#else
+using JetBrains.UI.ActionsRevised;
+using JetBrains.ActionManagement;
+#endif
 
 namespace AgentSmith.Comments.Reflow
 {
@@ -16,7 +24,7 @@ namespace AgentSmith.Comments.Reflow
 	[Action("AgentSmith.ReflowAndRetag")]
     public class ReflowAndRetagMenuAction : IExecutableAction
     {
-        #region Implementation of IActionHandler
+#region Implementation of IActionHandler
 
         private IProjectFile GetProjectFile(IDataContext context)
         {
@@ -56,6 +64,6 @@ namespace AgentSmith.Comments.Reflow
                 });
         }
 
-        #endregion
+#endregion
     }
 }

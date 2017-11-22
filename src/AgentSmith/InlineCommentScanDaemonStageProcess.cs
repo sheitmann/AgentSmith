@@ -64,7 +64,13 @@ namespace AgentSmith
             {
                 return;
             }
-			var consumer = new DefaultHighlightingConsumer(this, _settingsStore);       
+
+#if RESHARPER20173
+	        var consumer = new DefaultHighlightingConsumer(_daemonProcess.SourceFile);
+#else
+			var consumer = new DefaultHighlightingConsumer(this, _settingsStore);  
+#endif
+
             var commentSettings = _settingsStore.GetKey<CommentSettings>(SettingsOptimization.OptimizeDefault);
 
 	        foreach (var commentNode in file.Descendants<ICSharpCommentNode>()) {

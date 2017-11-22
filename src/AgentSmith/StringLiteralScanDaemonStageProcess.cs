@@ -57,14 +57,17 @@ namespace AgentSmith
         /// <param name="commiter">The function to call when we've finished the stage to report the results.</param>
         public void Execute(Action<DaemonStageResult> commiter)
         {
-
-			var consumer = new DefaultHighlightingConsumer(this, _settingsStore);  
-
             IFile file = this._daemonProcess.SourceFile.GetTheOnlyPsiFile(CSharpLanguage.Instance);
             if (file == null)
             {
                 return;
             }
+
+#if RESHARPER20173
+	        var consumer = new DefaultHighlightingConsumer(_daemonProcess.SourceFile);
+#else
+			var consumer = new DefaultHighlightingConsumer(this, _settingsStore);  
+#endif
 
             StringSettings stringSettings = this._settingsStore.GetKey<StringSettings>(SettingsOptimization.OptimizeDefault);
 

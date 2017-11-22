@@ -12,7 +12,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+#if !RESHARPER20172
 using JetBrains.Application.Settings.Store.Implementation;
+#endif
+
 using JetBrains.UI.Controls;
 using JetBrains.UI.CrossFramework;
 

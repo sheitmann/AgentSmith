@@ -3,7 +3,6 @@ using System.Windows.Forms;
 
 using AgentSmith.Comments;
 
-using JetBrains.ActionManagement;
 using JetBrains.Application.DataContext;
 using JetBrains.DocumentModel;
 using JetBrains.DocumentModel.DataContext;
@@ -17,13 +16,19 @@ using JetBrains.ReSharper.Psi.Files;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.TextControl;
 using JetBrains.TextControl.DataContext;
-using JetBrains.UI.ActionsRevised;
 using JetBrains.UI.RichText;
 using JetBrains.Util.dataStructures.TypedIntrinsics;
 using JetBrains.Util.Logging;
 
-using DataConstants = JetBrains.ProjectModel.DataContext.DataConstants;
 using MessageBox = JetBrains.Util.MessageBox;
+
+#if RESHARPER20172
+using JetBrains.Application.UI.ActionsRevised.Menu;
+using JetBrains.Application.UI.Actions;
+#else
+using JetBrains.UI.ActionsRevised;
+using JetBrains.ActionManagement;
+#endif
 
 namespace AgentSmith.SmartPaste
 {
@@ -102,10 +107,10 @@ namespace AgentSmith.SmartPaste
                 string prefix = currentLine.Substring(0, index);
 
                 if (ShallEscape(docCommentNode, editor.Caret.Offset()) &&
-                    RichTextBlockToHtml.HtmlEncode(stringToInsert) != stringToInsert &&
+                    HtmlEncode(stringToInsert) != stringToInsert &&
                     MessageBox.ShowYesNo("Do you want the text to be escaped?"))
                 {
-                    stringToInsert = RichTextBlockToHtml.HtmlEncode(stringToInsert);
+                    stringToInsert = HtmlEncode(stringToInsert);
                 }
 
                 stringToInsert = stringToInsert.Replace("\n", "\n" + prefix + "///");
@@ -143,7 +148,15 @@ namespace AgentSmith.SmartPaste
             editor.Document.InsertText(editor.Caret.Offset(), stringToInsert);
         }
 
-        private static bool ShallEscape(IDocCommentNode node, int offset)
+	    private static string HtmlEncode(string text) {
+#if RESHARPER20171
+		    return System.Net.WebUtility.HtmlEncode(text);
+#else
+			return  RichTextBlockToHtml.HtmlEncode(text);
+#endif
+	    }
+
+		private static bool ShallEscape(IDocCommentNode node, int offset)
         {
             IDocCommentBlock docBlock = node.GetContainingNode<IDocCommentBlock>(true);
             if (docBlock == null)
@@ -195,7 +208,7 @@ namespace AgentSmith.SmartPaste
             return false;
         }
 
-        #endregion
+#endregion
 
         private static bool IsAvailable(IDataContext context)
         {

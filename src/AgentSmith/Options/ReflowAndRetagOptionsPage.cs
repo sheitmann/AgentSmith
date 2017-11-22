@@ -4,6 +4,15 @@ using JetBrains.UI.Application;
 using JetBrains.UI.Options;
 using JetBrains.UI.Options.Helpers;
 
+#if RESHARPER20172
+using JetBrains.Application.UI.Components;
+using JetBrains.Application.UI.Options;
+using JetBrains.Application.UI.Options.OptionPages;
+using JetBrains.Application.UI.UIAutomation;
+#else
+using JetBrains.UI.Options.OptionPages.ToolsPages;
+#endif
+
 namespace AgentSmith.Options {
 	[OptionsPage(PID, "Reflow And Retag", typeof(OptionsThemedIcons.SamplePage), ParentId = XmlDocumentationOptionsPage.PID)]
 	public class ReflowAndRetagOptionsPage : AOptionsPage

@@ -10,6 +10,10 @@ using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Util;
 
+#if RESHARPER20172
+using JetBrains.Application.Threading;
+#endif
+
 namespace AgentSmith.Comments.Reflow
 {
     [CodeCleanupModule]

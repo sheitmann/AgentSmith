@@ -9,6 +9,7 @@ using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.Tree;
 
+#if RESHARPER20161 || RESHARPER20162
 [assembly: RegisterConfigurableSeverity(
     IdentifierSpellCheckHighlighting.SEVERITY_ID,
     null,
@@ -17,6 +18,15 @@ using JetBrains.ReSharper.Psi.Tree;
     "Spelling errors in identifiers",
     Severity.SUGGESTION,
     false)]
+#else
+[assembly: RegisterConfigurableSeverity(
+    IdentifierSpellCheckHighlighting.SEVERITY_ID,
+    null,
+    HighlightingGroupIds.CodeSmell,
+    "Spelling errors in identifiers",
+    "Spelling errors in identifiers",
+    Severity.SUGGESTION)]
+#endif
 
 namespace AgentSmith.Identifiers
 {

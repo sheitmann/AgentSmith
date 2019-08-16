@@ -106,11 +106,13 @@ namespace AgentSmith.Comments.Reflow
         public static void SetDocComment(IDocCommentBlockOwner docCommentBlockOwnerNode, string text, ISolution solution)
         {
             text = String.Format("/// {0}\r\nclass Tmp {{}}", text.Replace("\n", "\n/// "));
-
-            ICSharpTypeMemberDeclaration declaration =
-                CSharpElementFactory.GetInstance(docCommentBlockOwnerNode.GetPsiModule()).CreateTypeMemberDeclaration(text, new object[0]);
-            docCommentBlockOwnerNode.SetDocCommentBlock(
-                ((IDocCommentBlockOwner)declaration).DocCommentBlock);
+#if RESHARPER20171
+            var factory = CSharpElementFactory.GetInstance(docCommentBlockOwnerNode);
+#else
+            var factory = CSharpElementFactory.GetInstance(docCommentBlockOwnerNode.GetPsiModule());
+#endif
+            ICSharpTypeMemberDeclaration declaration = factory.CreateTypeMemberDeclaration(text, new object[0]);
+            docCommentBlockOwnerNode.SetDocCommentBlock(((IDocCommentBlockOwner)declaration).DocCommentBlock);
         }
 
 

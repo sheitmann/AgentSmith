@@ -27,14 +27,14 @@ namespace AgentSmith.Comments.Reflow
             _shellLocks = shellLocks;
         }
 
-        public void SetDefaultSetting(CodeCleanupProfile profile, CodeCleanup.DefaultProfileType profileType)
-        {
-            switch (profileType)
-            {
+        public void SetDefaultSetting(CodeCleanupProfile profile, CodeCleanup.DefaultProfileType profileType) {
+            switch (profileType) {
                 case CodeCleanup.DefaultProfileType.FULL:
                     profile.SetSetting(DescriptorInstance, true);
                     break;
-
+#if RESHARPER20191
+                case CodeCleanup.DefaultProfileType.CODE_STYLE:
+#endif
                 case CodeCleanup.DefaultProfileType.REFORMAT:
                     profile.SetSetting(DescriptorInstance, false);
                     break;

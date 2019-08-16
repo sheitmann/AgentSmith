@@ -119,8 +119,11 @@ namespace AgentSmith.Comments
             string text = XmlDocTemplateUtil.GetDocTemplate(docCommentBlockOwnerNode, out myCursorOffset);
 
             // Get a factory which can create elements in the C# docs
+#if RESHARPER20171
+            CSharpElementFactory factory = CSharpElementFactory.GetInstance(docCommentBlockOwnerNode);
+#else
             CSharpElementFactory factory = CSharpElementFactory.GetInstance(docCommentBlockOwnerNode.GetPsiModule());
-
+#endif
             // Create the comment block
             IDocCommentBlock comment = factory.CreateDocCommentBlock(text);
 

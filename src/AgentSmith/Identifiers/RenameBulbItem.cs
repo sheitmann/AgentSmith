@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 
 using JetBrains.Application.DataContext;
-using JetBrains.DataFlow;
+
 using JetBrains.ProjectModel;
 using JetBrains.ProjectModel.DataContext;
 using JetBrains.ReSharper.Feature.Services.Bulbs;
@@ -21,6 +21,12 @@ using JetBrains.ReSharper.Refactorings.Convert.Function2Property;
 #else
 using JetBrains.ReSharper.Refactorings.Function2Property;
 using JetBrains.ActionManagement;
+#endif
+
+#if RESHARPER20191
+using JetBrains.Lifetimes;
+#else
+using JetBrains.DataFlow;
 #endif
 
 namespace AgentSmith.Identifiers
@@ -74,9 +80,12 @@ namespace AgentSmith.Identifiers
                 "ManualRenameRefactoringItem",
                 RenameRefactoringService.RenameDataProvider, new SimpleRenameDataProvider(_targetName));
 #endif
-
-			Lifetimes.Using(
-		        (lifetime => {
+#if RESHARPER20191
+            Lifetime.Using(
+#else
+            Lifetimes.Using(
+#endif
+                (lifetime => {
 			        var actionManager = solution.GetComponent<IActionManager>();
 			        var context = actionManager.DataContexts.CreateWithDataRules(lifetime, provider);
 #if RESHARPER20161

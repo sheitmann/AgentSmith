@@ -171,11 +171,14 @@ namespace AgentSmith.Comments
                         wordLexer.Start();
                         while (wordLexer.TokenType != null)
                         {
-
+#if RESHARPER20191
+                            string tokenText = wordLexer.GetTokenText();
+#else
+                            string tokenText = wordLexer.GetCurrTokenText();
+#endif
                             int start = lexer.CurrentNode.GetTreeStartOffset().Offset + lexer.TokenStart + wordLexer.TokenStart;
-                            int end = start + wordLexer.GetCurrTokenText().Length;
-                            yield return new Range(wordLexer.GetCurrTokenText(), new TreeTextRange(new TreeOffset(start), new TreeOffset(end)));
-                            
+                            int end = start + tokenText.Length;
+                            yield return new Range(tokenText, new TreeTextRange(new TreeOffset(start), new TreeOffset(end)));
                             wordLexer.Advance();
                         }
                     }

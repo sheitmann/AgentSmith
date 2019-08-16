@@ -128,7 +128,7 @@ namespace AgentSmith
             StringSettings stringSettings = _settingsStore.GetKey<StringSettings>(SettingsOptimization.OptimizeDefault);
 
 
-            if (!_daemonProcess.FullRehighlightingRequired) return;
+            //if (!_daemonProcess.FullRehighlightingRequired) return;
 
             CommentAnalyzer commentAnalyzer = new CommentAnalyzer(_solution, _settingsStore);
             IdentifierSpellCheckAnalyzer identifierAnalyzer = new IdentifierSpellCheckAnalyzer(_solution, _settingsStore, _daemonProcess.SourceFile);

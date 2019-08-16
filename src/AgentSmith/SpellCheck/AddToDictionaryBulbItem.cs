@@ -52,7 +52,7 @@ namespace AgentSmith.SpellCheck
 
             boundStore.SetIndexedValue<CustomDictionarySettings, string, CustomDictionary>(x => x.CustomDictionaries, _dictName, dictionary);
             SpellCheckManager.Reset(); // Clear the cache.
-            solution.SaveSettings();
+            //solution.SaveSettings(); 2019-08-15 Method removed in 2019.2 but was empty anyway
 			solution.GetComponent<IDaemon>().ForceReHighlight(_documentRange.Document);
         }
 

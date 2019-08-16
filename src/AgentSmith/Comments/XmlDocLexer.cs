@@ -1,6 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
-
+using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Parsing;
 using JetBrains.ReSharper.Psi.Tree;
@@ -144,29 +144,20 @@ namespace AgentSmith.Comments
             }
         }
 
+        [CanBeNull]
         public string TokenText
         {
             get
             {
-                if (_myLexer != null)
-                {
-                    return _myLexer.GetCurrTokenText();
-                }
-                return null;
+#if RESHARPER20191
+                return _myLexer?.GetTokenText();
+#else
+                return _myLexer?.GetCurrTokenText();
+#endif
             }
         }
 
-        public TokenNodeType TokenType
-        {
-            get
-            {
-                if (_myLexer != null)
-                {
-                    return _myLexer.TokenType;
-                }
-                return null;
-            }
-        }
+        public TokenNodeType TokenType => _myLexer?.TokenType;
 
         #endregion
 

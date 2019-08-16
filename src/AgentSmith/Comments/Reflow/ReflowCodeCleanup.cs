@@ -34,7 +34,9 @@ namespace AgentSmith.Comments.Reflow
                 case CodeCleanup.DefaultProfileType.FULL:
                     profile.SetSetting(DescriptorInstance, false);
                     break;
-
+#if RESHARPER20191
+                case CodeCleanup.DefaultProfileType.CODE_STYLE:
+#endif
                 case CodeCleanup.DefaultProfileType.REFORMAT:
                     profile.SetSetting(DescriptorInstance, true);
                     break;

@@ -19,6 +19,12 @@ using JetBrains.Application.UI.UIAutomation;
 using JetBrains.UI.Options.OptionPages.ToolsPages;
 #endif
 
+#if RESHARPER20191
+using Lifetime = JetBrains.Lifetimes.Lifetime;
+#else
+    using Lifetime = JetBrains.DataFlow.Lifetime;
+#endif
+
 namespace AgentSmith.Options
 {
 	[OptionsPage(PID, "User Dictionaries", typeof(OptionsThemedIcons.SamplePage), ParentId = AgentSmithOptionsPage.PID)]

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Windows.Controls;
 
 using JetBrains.Annotations;
@@ -24,29 +25,57 @@ using Lifetime = JetBrains.Lifetimes.Lifetime;
 
 namespace AgentSmith.Options {
 	[OptionsPage(PID, "Identifiers", typeof(OptionsThemedIcons.SamplePage), ParentId = AgentSmithOptionsPage.PID)]
-	public class IdentifierOptionsPage : AOptionsPage
-	{
+
+#if RESHARPER20193
+	public class IdentifierOptionsPage : IdentifierOptionsUI, IOptionsPage {
+#else
+	public class IdentifierOptionsPage : AOptionsPage {
+#endif
 
 		public const string PID = "AgentSmithIdentifierId";
 
 		private OptionsSettingsSmartContext _settings;
 
 		private IdentifierOptionsUI _optionsUI;
+#if RESHARPER20193
+		public IdentifierOptionsPage([NotNull] Lifetime lifetime, OptionsSettingsSmartContext settingsSmartContext, IUIApplication environment) {
+			_settings = settingsSmartContext;
+			_optionsUI = this;
 
+			InitializeOptionsUI(lifetime);
+		}
+
+		#region Implementation of INotifyPropertyChanged
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		#endregion
+
+		#region Implementation of IOptionsPage
+
+		public bool OnOk() => true;
+
+		public string Id => PID;
+
+		#endregion
+#else
 		public IdentifierOptionsPage([NotNull] Lifetime lifetime, OptionsSettingsSmartContext settingsSmartContext, IUIApplication environment)
-			: base(lifetime, environment, PID)
-		{
+			: base(lifetime, environment, PID) {
 			_settings = settingsSmartContext;
 			_optionsUI = new IdentifierOptionsUI();
 			this.Control = _optionsUI;
 
-			settingsSmartContext.SetBinding<IdentifierSettings, string>(
-				lifetime, x => x.DictionaryName, _optionsUI.txtDictionaryName, TextBox.TextProperty);
-			settingsSmartContext.SetBinding<IdentifierSettings, string>(
-				lifetime, x => x.WordsToIgnore, _optionsUI.txtWordsToIgnore, TextBox.TextProperty);
-			settingsSmartContext.SetBinding<IdentifierSettings, int>(
-				lifetime, x => x.LookupScope, _optionsUI.cmbLookupScope, ComboBox.SelectedIndexProperty);
+			InitializeOptionsUI(lifetime);
+		}
+#endif
 
+		private void InitializeOptionsUI(Lifetime lifetime) {
+			_settings.SetBinding<IdentifierSettings, string>(
+				lifetime, x => x.DictionaryName, _optionsUI.txtDictionaryName, TextBox.TextProperty);
+			_settings.SetBinding<IdentifierSettings, string>(
+				lifetime, x => x.WordsToIgnore, _optionsUI.txtWordsToIgnore, TextBox.TextProperty);
+			_settings.SetBinding<IdentifierSettings, int>(
+				lifetime, x => x.LookupScope, _optionsUI.cmbLookupScope, ComboBox.SelectedIndexProperty);
 		}
 	}
 }

@@ -1,0 +1,127 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<!--<Project Sdk="MSBuild.Sdk.Extras/1.6.68">-->
+<!--<Project Sdk="Microsoft.NET.Sdk">-->
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <AssemblyVersion>0.0.0.1</AssemblyVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <LangVersion>8.0</LangVersion>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DefineConstants>RESHARPER20163;RESHARPER20171;RESHARPER20172;RESHARPER20173;RESHARPER20181;RESHARPER20182;RESHARPER20183;RESHARPER20191;RESHARPER20192;RESHARPER20193</DefineConstants>
+    <RootNamespace>AgentSmith</RootNamespace>
+    <AssemblyName>ReSharper.AgentSmith</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;$(DefineConstants);</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;JET_MODE_ASSERT;$(DefineConstants);</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\AssemblyInfo.201601.cs" />
+    <Compile Remove="Properties\AssemblyInfo.201602.cs" />
+    <Compile Remove="Properties\AssemblyInfo.201603.cs" />
+    <Compile Remove="Properties\AssemblyInfo.201701.cs" />
+    <Compile Remove="Properties\AssemblyInfo.201702.cs" />
+    <Compile Remove="Properties\AssemblyInfo.201703.cs" />
+    <Compile Remove="Properties\AssemblyInfo.201801.cs" />
+    <Compile Remove="Properties\AssemblyInfo.201802.cs" />
+    <Compile Remove="Properties\AssemblyInfo.201803.cs" />
+    <Compile Remove="Properties\AssemblyInfo.201901.cs" />
+    <Compile Remove="Properties\AssemblyInfo.201902.cs" />
+    <Compile Remove="Properties\AssemblyInfo.201903.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="AgentSmith.201601.nuspec" />
+    <None Remove="AgentSmith.201602.nuspec" />
+    <None Remove="AgentSmith.201603.nuspec" />
+    <None Remove="AgentSmith.201701.nuspec" />
+    <None Remove="AgentSmith.201702.nuspec" />
+    <None Remove="AgentSmith.201703.nuspec" />
+    <None Remove="AgentSmith.201801.nuspec" />
+    <None Remove="AgentSmith.201802.nuspec" />
+    <None Remove="AgentSmith.201803.nuspec" />
+    <None Remove="AgentSmith.201901.nuspec" />
+    <None Remove="AgentSmith.201902.nuspec" />
+    <None Remove="AgentSmith.201903.nuspec" />
+    <!--<None Remove="Options\AgentSmithOptionsUI.xaml" />
+    <None Remove="Options\CommentOptionsUI.xaml" />
+    <None Remove="Options\CustomDictionariesOptionsUI.xaml" />
+    <None Remove="Options\EditCustomDictionaryDialog.xaml" />
+    <None Remove="Options\IdentifierOptionsUI.xaml" />
+    <None Remove="Options\ReflowAndRetagOptionsUI.xaml" />
+    <None Remove="Options\ResXOptionsUI.xaml" />
+    <None Remove="Options\StringOptionsUI.xaml" />
+    <None Remove="Options\ThemedIcons.Options.Generated.Xaml" />
+    <None Remove="Options\XmlDocumentationOptionsUI.xaml" />-->
+    <None Remove="packages.AgentSmith.201601.config" />
+    <None Remove="packages.AgentSmith.201602.config" />
+    <None Remove="packages.AgentSmith.201603.config" />
+    <None Remove="packages.AgentSmith.201701.config" />
+    <None Remove="packages.AgentSmith.201702.config" />
+    <None Remove="packages.AgentSmith.201703.config" />
+    <None Remove="packages.AgentSmith.201801.config" />
+    <None Remove="packages.AgentSmith.201802.config" />
+    <None Remove="packages.AgentSmith.201803.config" />
+    <None Remove="packages.AgentSmith.201901.config" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <Page Include="Options\AgentSmithOptionsUI.xaml" />
+  </ItemGroup>-->
+
+  <ItemGroup>
+    <PackageReference Include="JetBrains.ReSharper.SDK" Version="2020.1.1">
+      <!--<PrivateAssets>all</PrivateAssets>-->
+      <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
+    </PackageReference>
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <Page Include="Options\CommentOptionsUI.xaml" />
+    <Page Include="Options\CustomDictionariesOptionsUI.xaml" />
+    <Page Include="Options\EditCustomDictionaryDialog.xaml" />
+    <Page Include="Options\IdentifierOptionsUI.xaml" />
+    <Page Include="Options\ReflowAndRetagOptionsUI.xaml" />
+    <Page Include="Options\ResXOptionsUI.xaml" />
+    <Page Include="Options\StringOptionsUI.xaml" />
+    <Page Include="Options\ThemedIcons.Options.Generated.Xaml" />
+    <Page Include="Options\XmlDocumentationOptionsUI.xaml" />
+  </ItemGroup>-->
+
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AgentSmith.202001.nuspec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Hunspellx64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Hunspellx86.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

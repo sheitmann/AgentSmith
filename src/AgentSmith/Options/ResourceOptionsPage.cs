@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Windows.Controls;
 
 using JetBrains.Annotations;
@@ -24,8 +25,11 @@ using Lifetime = JetBrains.Lifetimes.Lifetime;
 
 namespace AgentSmith.Options {
 	[OptionsPage(PID, "Resources", typeof(OptionsThemedIcons.SamplePage), ParentId = AgentSmithOptionsPage.PID)]
-	public class ResourceOptionsPage : AOptionsPage
-	{
+#if RESHARPER20193
+	public class ResourceOptionsPage : ResXOptionsUI, IOptionsPage {
+#else
+	public class ResourceOptionsPage : AOptionsPage {
+#endif
 
 		public const string PID = "AgentSmithResourceId";
 
@@ -33,18 +37,43 @@ namespace AgentSmith.Options {
 
 		private ResXOptionsUI _optionsUI;
 
+#if RESHARPER20193
+		public ResourceOptionsPage([NotNull] Lifetime lifetime, OptionsSettingsSmartContext settingsSmartContext, IUIApplication environment) {
+			_settings = settingsSmartContext;
+			_optionsUI = this;
+
+			InitializeOptionsUI(lifetime);
+		}
+
+		#region Implementation of INotifyPropertyChanged
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		#endregion
+
+		#region Implementation of IOptionsPage
+
+		public bool OnOk() => true;
+
+		public string Id => PID;
+
+		#endregion
+#else
 		public ResourceOptionsPage([NotNull] Lifetime lifetime, OptionsSettingsSmartContext settingsSmartContext, IUIApplication environment)
-			: base(lifetime, environment, PID)
-		{
+			: base(lifetime, environment, PID) {
 			_settings = settingsSmartContext;
 			_optionsUI = new ResXOptionsUI();
 			this.Control = _optionsUI;
 
-			settingsSmartContext.SetBinding<ResXSettings, string>(
-				lifetime, x => x.DictionaryName, _optionsUI.txtDictionaryName, TextBox.TextProperty);
-			settingsSmartContext.SetBinding<ResXSettings, string>(
-				lifetime, x => x.WordsToIgnore, _optionsUI.txtWordsToIgnore, TextBox.TextProperty);
+			InitializeOptionsUI(lifetime);
+		}
+#endif
 
+		private void InitializeOptionsUI(Lifetime lifetime) {
+			_settings.SetBinding<ResXSettings, string>(
+				lifetime, x => x.DictionaryName, _optionsUI.txtDictionaryName, TextBox.TextProperty);
+			_settings.SetBinding<ResXSettings, string>(
+				lifetime, x => x.WordsToIgnore, _optionsUI.txtWordsToIgnore, TextBox.TextProperty);
 		}
 	}
 }

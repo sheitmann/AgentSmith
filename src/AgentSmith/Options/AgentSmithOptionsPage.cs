@@ -1,3 +1,7 @@
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
+using JetBrains.Application.UI.Options.OptionsDialog;
 using JetBrains.UI.CrossFramework;
 using JetBrains.UI.Options;
 
@@ -11,11 +15,15 @@ using JetBrains.UI.Options.OptionPages.ToolsPages;
 
 namespace AgentSmith.Options {
 	[OptionsPage(PID, "AgentSmith", typeof(OptionsThemedIcons.SamplePage), ParentId = ToolsPage.PID)]
-	public class AgentSmithOptionsPage : IOptionsPage
-	{
+#if RESHARPER20193
+	public class AgentSmithOptionsPage : AEmptyOptionsPage {
+#else
+		public class AgentSmithOptionsPage : IOptionsPage {
+#endif
 
 		public const string PID = "AgentSmithId";
 
+#if !RESHARPER20193
 		#region Implementation of IOptionsPage
 
 		public bool OnOk() {
@@ -31,5 +39,13 @@ namespace AgentSmith.Options {
 		public string Id { get { return PID; } }
 
 		#endregion
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		[NotifyPropertyChangedInvocator]
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
+#endif
 	}
 }

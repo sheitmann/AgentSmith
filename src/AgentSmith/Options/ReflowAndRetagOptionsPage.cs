@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using JetBrains.Annotations;
 using JetBrains.DataFlow;
 using JetBrains.UI.Application;
@@ -21,24 +22,43 @@ using Lifetime = JetBrains.Lifetimes.Lifetime;
 
 namespace AgentSmith.Options {
 	[OptionsPage(PID, "Reflow And Retag", typeof(OptionsThemedIcons.SamplePage), ParentId = XmlDocumentationOptionsPage.PID)]
-	public class ReflowAndRetagOptionsPage : AOptionsPage
-	{
+#if RESHARPER20193
+	public class ReflowAndRetagOptionsPage : ReflowAndRetagOptionsUI, IOptionsPage { 
+#else
+		public class ReflowAndRetagOptionsPage : AOptionsPage {
+#endif
 
 		public const string PID = "AgentSmithReflowAndRetagId";
 
 		private OptionsSettingsSmartContext _settings;
 
 		private ReflowAndRetagOptionsUI _optionsUI;
+#if RESHARPER20193
+		public ReflowAndRetagOptionsPage([NotNull] Lifetime lifetime, OptionsSettingsSmartContext settingsSmartContext, IUIApplication environment) : base(settingsSmartContext) {
+			_settings = settingsSmartContext;
+			_optionsUI =this;
+		}
 
+		#region Implementation of INotifyPropertyChanged
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		#endregion
+
+		#region Implementation of IOptionsPage
+
+		public bool OnOk() => true;
+
+		public string Id => PID;
+
+		#endregion
+#else
 		public ReflowAndRetagOptionsPage([NotNull] Lifetime lifetime, OptionsSettingsSmartContext settingsSmartContext, IUIApplication environment)
-			: base(lifetime, environment, PID)
-		{
+			: base(lifetime, environment, PID) {
 			_settings = settingsSmartContext;
 			_optionsUI = new ReflowAndRetagOptionsUI(_settings);
 			this.Control = _optionsUI;
-
 		}
-
-
+#endif
 	}
 }

@@ -39,7 +39,18 @@ namespace AgentSmith.Strings
         public static void SpellCheck(IDocument document, ITokenNode token, ISpellChecker spellChecker,
                                                        ISolution solution, DefaultHighlightingConsumer consumer, IContextBoundSettingsStore settingsStore, StringSettings settings)
         {
-            if (spellChecker == null) return;
+	        if (spellChecker == null) {
+		        return;
+	        }
+
+	        var tokenTextRange = token.GetTreeTextRange();
+	        if (!tokenTextRange.IsValid()) {
+		        return;
+	        }
+	        DocumentRange tokenDocumentRange = token.GetContainingFile().TranslateRangeForHighlighting(tokenTextRange);
+	        if (!tokenDocumentRange.IsValid()) {
+		        return;
+	        }
 
             string buffer = unescape(token.GetText());
             ILexer wordLexer = new WordLexer(buffer);
@@ -70,10 +81,8 @@ namespace AgentSmith.Strings
 
 								//TextRange range = new TextRange(start, end);
 								//DocumentRange documentRange = new DocumentRange(document, range);
-
-								DocumentRange documentRange =
-								   token.GetContainingFile().TranslateRangeForHighlighting(token.GetTreeTextRange());
-								documentRange = documentRange.ExtendLeft(-wordLexer.TokenStart);
+								
+								var documentRange = tokenDocumentRange.ExtendLeft(-wordLexer.TokenStart);
 								documentRange = documentRange.ExtendRight(-1 * (documentRange.GetText().Length - tokenText.Length));
 
                                 TextRange textRange = new TextRange(humpToken.Start - wordLexer.TokenStart,

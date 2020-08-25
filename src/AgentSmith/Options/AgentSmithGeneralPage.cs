@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Reflection;
 
 using JetBrains.Annotations;
@@ -23,23 +24,55 @@ using JetBrains.UI.Options.OptionPages.ToolsPages;
 
 namespace AgentSmith.Options {
 	[OptionsPage(PID, "General", typeof(OptionsThemedIcons.SamplePage), ParentId = AgentSmithOptionsPage.PID)]
-	public class AgentSmithGeneralPage : AOptionsPage {
 
+#if RESHARPER20193
+	public class AgentSmithGeneralPage : AgentSmithOptionsUI, IOptionsPage {
+#else
+	public class AgentSmithGeneralPage : AOptionsPage {
+#endif
 		public const string PID = "AgentSmithGeneralId";
 
 		private OptionsSettingsSmartContext _settings;
 
 		private AgentSmithOptionsUI _optionsUI;
 
+#if RESHARPER20193
+
+		public AgentSmithGeneralPage([NotNull] Lifetime lifetime, OptionsSettingsSmartContext settingsSmartContext) {
+			_settings = settingsSmartContext;
+			_optionsUI = new AgentSmithOptionsUI();
+
+			InitializeOptionsUI();
+		}
+
+		#region Implementation of INotifyPropertyChanged
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		#endregion
+
+		#region Implementation of IOptionsPage
+
+		public bool OnOk() => true;
+
+		public string Id => PID;
+
+		#endregion
+#else
 		public AgentSmithGeneralPage([NotNull] Lifetime lifetime, OptionsSettingsSmartContext settingsSmartContext, IUIApplication environment)
 			: base(lifetime, environment, PID) {
 			_settings = settingsSmartContext;
 			_optionsUI = new AgentSmithOptionsUI();
 
-			AssemblyName assemblyName = typeof(AgentSmithOptionsPage).Assembly.GetName();
-
-			_optionsUI.txtTitle.Text += assemblyName.Name + " V" + assemblyName.Version;
 			Control = _optionsUI;
+
+			InitializeOptionsUI();
+		}
+#endif
+
+		private void InitializeOptionsUI() {
+			AssemblyName assemblyName = typeof(AgentSmithOptionsPage).Assembly.GetName();
+			_optionsUI.txtTitle.Text += assemblyName.Name + " V" + assemblyName.Version;
 		}
 	}
 }

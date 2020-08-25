@@ -93,10 +93,16 @@ namespace AgentSmith
         public static void CheckString(ICSharpLiteralExpression literalExpression,
 								DefaultHighlightingConsumer consumer, StringSettings settings, ISolution _solution, IContextBoundSettingsStore _settingsStore, IDaemonProcess _daemonProcess = null)
         {
-            //ConstantValue val = literalExpression.ConstantValue;
+			var literalExpressionDocumentRange = literalExpression.GetDocumentRange();
+			if (!literalExpressionDocumentRange.IsValid()) {
+				return;
+			}
 
-            // Ignore it unless it's something we're re-evalutating
-            if (_daemonProcess != null && !_daemonProcess.IsRangeInvalidated(literalExpression.GetDocumentRange())) return;
+			//ConstantValue val = literalExpression.ConstantValue;
+
+			// Ignore it unless it's something we're re-evalutating
+
+			if (_daemonProcess != null && !_daemonProcess.IsRangeInvalidated(literalExpressionDocumentRange)) return;
 
 			ITokenNode tokenNode = literalExpression.Literal;
 	        if (tokenNode == null) {
@@ -114,8 +120,7 @@ namespace AgentSmith
 			ISpellChecker spellChecker = SpellCheckManager.GetSpellChecker(_settingsStore, _solution, settings.DictionaryNames);
 
 	        StringSpellChecker.SpellCheck(
-		        literalExpression.GetDocumentRange()
-		                         .Document,
+		        literalExpressionDocumentRange.Document,
 		        tokenNode,
 		        spellChecker,
 		        _solution, consumer, _settingsStore, settings);
@@ -124,10 +129,17 @@ namespace AgentSmith
 
 		public static void CheckString(IInterpolatedStringExpression literalExpression,
 								DefaultHighlightingConsumer consumer, StringSettings settings, ISolution _solution, IContextBoundSettingsStore _settingsStore, IDaemonProcess _daemonProcess = null) {
+			var literalExpressionDocumentRange = literalExpression.GetDocumentRange();
+			if (!literalExpressionDocumentRange.IsValid()) {
+				return;
+			}
 			//ConstantValue val = literalExpression.ConstantValue;
 
 			// Ignore it unless it's something we're re-evalutating
-			if(_daemonProcess != null && !_daemonProcess.IsRangeInvalidated(literalExpression.GetDocumentRange())) return;
+			if (_daemonProcess != null
+			    && !_daemonProcess.IsRangeInvalidated(literalExpressionDocumentRange)) {
+				return;
+			}
 
 			foreach (var tokenNode in literalExpression.StringLiterals) {
 				if (tokenNode == null) {
@@ -155,12 +167,10 @@ namespace AgentSmith
 				ISpellChecker spellChecker = SpellCheckManager.GetSpellChecker(_settingsStore, _solution, settings.DictionaryNames);
 
 				StringSpellChecker.SpellCheck(
-					literalExpression.GetDocumentRange()
-					                 .Document,
+					literalExpressionDocumentRange.Document,
 					tokenNode,
 					spellChecker,
 					_solution, consumer, _settingsStore, settings);
-
 			}
 		}
 		#endregion

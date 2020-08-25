@@ -89,19 +89,27 @@ namespace AgentSmith
 
 
         public void CheckComment(ICSharpCommentNode commentNode,
-                                DefaultHighlightingConsumer consumer, CommentSettings settings)
-        {
+                                DefaultHighlightingConsumer consumer, CommentSettings settings) {
+	        var commentNodeDocumentRange = commentNode.GetDocumentRange();
+	        if (!commentNodeDocumentRange.IsValid()) {
+		        return;
+	        }
+
             // Ignore it unless it's something we're re-evalutating
-            if (!_daemonProcess.IsRangeInvalidated(commentNode.GetDocumentRange())) return;
+            if (!_daemonProcess.IsRangeInvalidated(commentNodeDocumentRange)) {
+	            return;
+            }
 
             // Only look for ones that are not doc comments
-            if (commentNode.CommentType != CommentType.END_OF_LINE_COMMENT &&
-                commentNode.CommentType != CommentType.MULTILINE_COMMENT) return;
+            if (commentNode.CommentType != CommentType.END_OF_LINE_COMMENT
+                && commentNode.CommentType != CommentType.MULTILINE_COMMENT) {
+	            return;
+            }
 
             ISpellChecker spellChecker = SpellCheckManager.GetSpellChecker(_settingsStore, _solution, settings.DictionaryNames);
 
             SpellCheck(
-                commentNode.GetDocumentRange().Document,
+                commentNodeDocumentRange.Document,
                 commentNode,
                 spellChecker,
                 _solution, consumer, _settingsStore, settings);
@@ -111,7 +119,14 @@ namespace AgentSmith
         public static void SpellCheck(IDocument document, ITokenNode token, ISpellChecker spellChecker,
                                                ISolution solution, DefaultHighlightingConsumer consumer, IContextBoundSettingsStore settingsStore, CommentSettings settings)
         {
-            if (spellChecker == null) return;
+	        if (spellChecker == null) {
+		        return;
+	        }
+
+	        var tokenTextRange = token.GetTreeTextRange();
+	        if (!tokenTextRange.IsValid()) {
+		        return;
+	        }
 
             string buffer = token.GetText();
             ILexer wordLexer = new WordLexer(buffer);
@@ -137,13 +152,13 @@ namespace AgentSmith
                             if (SpellCheckUtil.ShouldSpellCheck(humpToken.Value, settings.CompiledWordsToIgnore) &&
                                 !spellChecker.TestWord(humpToken.Value, true))
                             {
-								//int start = token.GetTreeStartOffset().Offset + wordLexer.TokenStart;
-								//int end = start + tokenText.Length;
+                                //int start = token.GetTreeStartOffset().Offset + wordLexer.TokenStart;
+                                //int end = start + tokenText.Length;
 
-								//var range = new TextRange(start, end);
-								//var documentRange = new DocumentRange(document, range);
-	                            DocumentRange documentRange =
-		                            token.GetContainingFile().TranslateRangeForHighlighting(token.GetTreeTextRange());
+                                //var range = new TextRange(start, end);
+                                //var documentRange = new DocumentRange(document, range);
+
+                                DocumentRange documentRange = token.GetContainingFile().TranslateRangeForHighlighting(tokenTextRange);
 								documentRange = documentRange.ExtendLeft(-wordLexer.TokenStart);
 								documentRange = documentRange.ExtendRight(-1*(documentRange.GetText().Length - tokenText.Length));
 

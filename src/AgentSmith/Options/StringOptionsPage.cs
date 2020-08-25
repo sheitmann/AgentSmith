@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Windows.Controls;
 
 using JetBrains.Annotations;
@@ -24,8 +25,11 @@ using Lifetime = JetBrains.Lifetimes.Lifetime;
 
 namespace AgentSmith.Options {
 	[OptionsPage(PID, "Strings", typeof(OptionsThemedIcons.SamplePage), ParentId = AgentSmithOptionsPage.PID)]
-	public class StringOptionsPage : AOptionsPage
-	{
+#if RESHARPER20193
+	public class StringOptionsPage : StringOptionsUI, IOptionsPage {
+#else
+		public class StringOptionsPage : AOptionsPage {
+#endif
 
 		public const string PID = "AgentSmithStringId";
 
@@ -33,20 +37,46 @@ namespace AgentSmith.Options {
 
 		private StringOptionsUI _optionsUI;
 
+#if RESHARPER20193
+		public StringOptionsPage([NotNull] Lifetime lifetime, OptionsSettingsSmartContext settingsSmartContext, IUIApplication environment) {
+			_settings = settingsSmartContext;
+			_optionsUI = this;
+
+			InitializeOptionsUI(lifetime);
+		}
+
+		#region Implementation of INotifyPropertyChanged
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		#endregion
+
+		#region Implementation of IOptionsPage
+
+		public bool OnOk() => true;
+
+		public string Id => PID;
+
+		#endregion
+#else
 		public StringOptionsPage([NotNull] Lifetime lifetime, OptionsSettingsSmartContext settingsSmartContext, IUIApplication environment)
-			: base(lifetime, environment, PID)
-		{
+			: base(lifetime, environment, PID) {
 			_settings = settingsSmartContext;
 			_optionsUI = new StringOptionsUI();
 			this.Control = _optionsUI;
 
-			settingsSmartContext.SetBinding<StringSettings, string>(
-				lifetime, x => x.DictionaryName, _optionsUI.txtDictionaryName, TextBox.TextProperty);
-			settingsSmartContext.SetBinding<StringSettings, bool?>(
-				lifetime, x => x.IgnoreVerbatimStrings, _optionsUI.chkIgnoreVerbatimStrings, CheckBox.IsCheckedProperty);
-			settingsSmartContext.SetBinding<StringSettings, string>(
-				lifetime, x => x.WordsToIgnore, _optionsUI.txtWordsToIgnore, TextBox.TextProperty);
-
+			InitializeOptionsUI(lifetime);
 		}
+#endif
+
+		private void InitializeOptionsUI(Lifetime lifetime) {
+			_settings.SetBinding<StringSettings, string>(
+				lifetime, x => x.DictionaryName, _optionsUI.txtDictionaryName, TextBox.TextProperty);
+			_settings.SetBinding<StringSettings, bool?>(
+				lifetime, x => x.IgnoreVerbatimStrings, _optionsUI.chkIgnoreVerbatimStrings, CheckBox.IsCheckedProperty);
+			_settings.SetBinding<StringSettings, string>(
+				lifetime, x => x.WordsToIgnore, _optionsUI.txtWordsToIgnore, TextBox.TextProperty);
+		}
+
 	}
 }

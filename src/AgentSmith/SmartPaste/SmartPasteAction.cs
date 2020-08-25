@@ -1,5 +1,5 @@
 using System;
-using System.Windows.Forms;
+using System.Windows;
 
 using AgentSmith.Comments;
 

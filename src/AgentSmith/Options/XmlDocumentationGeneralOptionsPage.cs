@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Windows.Controls;
 
 using JetBrains.Annotations;
@@ -24,7 +25,11 @@ using Lifetime = JetBrains.Lifetimes.Lifetime;
 
 namespace AgentSmith.Options {
 	[OptionsPage(PID, "General", typeof(OptionsThemedIcons.SamplePage), ParentId = XmlDocumentationOptionsPage.PID)]
+#if RESHARPER20193
+	public class XmlDocumentationGeneralOptionsPage : XmlDocumentationOptionsUI, IOptionsPage {
+#else
 	public class XmlDocumentationGeneralOptionsPage : AOptionsPage {
+#endif
 
 		public const string PID = "AgentSmithXmlDocumentationGEneralId";
 
@@ -32,25 +37,51 @@ namespace AgentSmith.Options {
 
 		private XmlDocumentationOptionsUI _optionsUI;
 
+#if RESHARPER20193
+		public XmlDocumentationGeneralOptionsPage([NotNull] Lifetime lifetime, OptionsSettingsSmartContext settingsSmartContext, IUIApplication environment) {
+			_settings = settingsSmartContext;
+			_optionsUI = this;
+			
+			InitializeOptionsUI(lifetime);
+		}
+
+		#region Implementation of INotifyPropertyChanged
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		#endregion
+
+		#region Implementation of IOptionsPage
+
+		public bool OnOk() => true;
+
+		public string Id => PID;
+
+		#endregion
+#else
 		public XmlDocumentationGeneralOptionsPage([NotNull] Lifetime lifetime, OptionsSettingsSmartContext settingsSmartContext, IUIApplication environment)
 			: base(lifetime, environment, PID) {
 			_settings = settingsSmartContext;
 			_optionsUI = new XmlDocumentationOptionsUI();
 			this.Control = _optionsUI;
 
-			settingsSmartContext.SetBinding<XmlDocumentationSettings, string>(
-				lifetime, x => x.DictionaryName, _optionsUI.txtDictionaryName, TextBox.TextProperty);
-			settingsSmartContext.SetBinding<XmlDocumentationSettings, bool?>(
-				lifetime, x => x.SuppressIfBaseHasComment, _optionsUI.chkSuppressIfBaseHasComment, CheckBox.IsCheckedProperty);
-			settingsSmartContext.SetBinding<XmlDocumentationSettings, int>(
-				lifetime, x => x.MaxCharactersPerLine, _optionsUI.txtMaxCharsPerLine, IntegerTextBox.ValueProperty);
-			settingsSmartContext.SetBinding<XmlDocumentationSettings, string>(
-				lifetime, x => x.WordsToIgnore, _optionsUI.txtWordsToIgnore, TextBox.TextProperty);
-			settingsSmartContext.SetBinding<XmlDocumentationSettings, string>(
-				lifetime, x => x.WordsToIgnoreForMetatagging, _optionsUI.txtWordsToIgnoreForMetatagging, TextBox.TextProperty);
-			settingsSmartContext.SetBinding<XmlDocumentationSettings, string>(
-				lifetime, x => x.ProjectNamesToIgnore, _optionsUI.txtProjectNamesToIgnore, TextBox.TextProperty);
-
+			InitializeOptionsUI(lifetime);
 		}
+#endif
+		private void InitializeOptionsUI(Lifetime lifetime) {
+			_settings.SetBinding<XmlDocumentationSettings, string>(
+				lifetime, x => x.DictionaryName, _optionsUI.txtDictionaryName, TextBox.TextProperty);
+			_settings.SetBinding<XmlDocumentationSettings, bool?>(
+				lifetime, x => x.SuppressIfBaseHasComment, _optionsUI.chkSuppressIfBaseHasComment, CheckBox.IsCheckedProperty);
+			_settings.SetBinding<XmlDocumentationSettings, int>(
+				lifetime, x => x.MaxCharactersPerLine, _optionsUI.txtMaxCharsPerLine, IntegerTextBox.ValueProperty);
+			_settings.SetBinding<XmlDocumentationSettings, string>(
+				lifetime, x => x.WordsToIgnore, _optionsUI.txtWordsToIgnore, TextBox.TextProperty);
+			_settings.SetBinding<XmlDocumentationSettings, string>(
+				lifetime, x => x.WordsToIgnoreForMetatagging, _optionsUI.txtWordsToIgnoreForMetatagging, TextBox.TextProperty);
+			_settings.SetBinding<XmlDocumentationSettings, string>(
+				lifetime, x => x.ProjectNamesToIgnore, _optionsUI.txtProjectNamesToIgnore, TextBox.TextProperty);
+		}
+
 	}
 }

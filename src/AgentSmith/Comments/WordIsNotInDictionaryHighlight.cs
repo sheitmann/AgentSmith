@@ -1,4 +1,3 @@
-using AgentSmith.Comments;
 using AgentSmith.SpellCheck;
 using AgentSmith.SpellCheck.NetSpell;
 
@@ -8,32 +7,18 @@ using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi.CSharp;
 
-#if RESHARPER20161 || RESHARPER20162
-[assembly: RegisterConfigurableSeverity(
-    WordIsNotInDictionaryHighlight.SEVERITY_ID,
-    null,
-    HighlightingGroupIds.CodeSmell,
-    "Word is not in the dictionary",
-    "Word is not in the dictionary",
-    Severity.SUGGESTION,
-    false)]
-#else
-[assembly: RegisterConfigurableSeverity(
-    WordIsNotInDictionaryHighlight.SEVERITY_ID,
-    null,
-    HighlightingGroupIds.CodeSmell,
-    "Word is not in the dictionary",
-    "Word is not in the dictionary",
-    Severity.SUGGESTION)]
-#endif
-
-namespace AgentSmith.Comments
-{
-
+namespace AgentSmith.Comments {
+	[RegisterConfigurableSeverity(
+		SEVERITY_ID,
+		null,
+		HighlightingGroupIds.CodeSmell,
+		"Word is not in the dictionary",
+		"Word is not in the dictionary",
+		Severity.SUGGESTION)]
     [ConfigurableSeverityHighlighting(SEVERITY_ID,CSharpLanguage.Name)]
     public class WordIsNotInDictionaryHighlight : SpellCheckHighlightBase
     {
-        public const string SEVERITY_ID = "WordIsNotInDictionary";
+        private const string SEVERITY_ID = "WordIsNotInDictionary";
         private readonly string _word;
         private readonly LexerToken _token;
 

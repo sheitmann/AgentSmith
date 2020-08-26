@@ -1,34 +1,20 @@
-using AgentSmith.Comments;
 using AgentSmith.MemberMatch;
 
 using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.Tree;
 
-#if RESHARPER20161 || RESHARPER20162
-[assembly: RegisterConfigurableSeverity(
-    PublicMemberMissingXmlCommentHighlighting.SEVERITY_ID,
-    null,
-    HighlightingGroupIds.CodeSmell,
-    "Public members should have XML documentation",
-    "Public members should have XML documentation",
-    Severity.ERROR,
-    false)]
-#else
-[assembly: RegisterConfigurableSeverity(
-    PublicMemberMissingXmlCommentHighlighting.SEVERITY_ID,
-    null,
-    HighlightingGroupIds.CodeSmell,
-    "Public members should have XML documentation",
-    "Public members should have XML documentation",
-    Severity.ERROR)]
-#endif
-
-namespace AgentSmith.Comments
-{
+namespace AgentSmith.Comments {
     /// <summary>
     /// A highlight for public members which don't have xml documentation comments
     /// </summary>
+    [RegisterConfigurableSeverity(
+	    SEVERITY_ID,
+	    null,
+	    HighlightingGroupIds.CodeSmell,
+	    "Public members should have XML documentation",
+	    "Public members should have XML documentation",
+	    Severity.ERROR)]
     [ConfigurableSeverityHighlighting(SEVERITY_ID, CSharpLanguage.Name)]
     public class PublicMemberMissingXmlCommentHighlighting : MissingXmlCommentHighlight
     {
@@ -46,6 +32,6 @@ namespace AgentSmith.Comments
         /// <summary>
         /// The ID of this highlight - used to uniquely identify this highlight in the options.
         /// </summary>
-        public const string SEVERITY_ID = "PublicMembersMustHaveComments";
+        private const string SEVERITY_ID = "PublicMembersMustHaveComments";
     }
 }

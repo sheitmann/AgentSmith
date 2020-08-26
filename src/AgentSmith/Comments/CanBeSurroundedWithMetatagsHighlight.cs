@@ -6,31 +6,20 @@ using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 
-#if RESHARPER20161 || RESHARPER20162
-[assembly: RegisterConfigurableSeverity(
-    CanBeSurroundedWithMetatagsHighlight.SEVERITY_ID,
-    null,
-    HighlightingGroupIds.CodeSmell,
-    "Identifiers in XML documentation should be surrounded with meta-tags",
-    "Identifiers in XML documentation should be surrounded with meta-tags",
-    Severity.SUGGESTION,
-    false)]
-#else
-[assembly: RegisterConfigurableSeverity(
-    CanBeSurroundedWithMetatagsHighlight.SEVERITY_ID,
-    null,
-    HighlightingGroupIds.CodeSmell,
-    "Identifiers in XML documentation should be surrounded with meta-tags",
-    "Identifiers in XML documentation should be surrounded with meta-tags",
-    Severity.SUGGESTION)]
-#endif
+namespace AgentSmith.Comments {
 
-namespace AgentSmith.Comments
-{
+	[RegisterConfigurableSeverity(
+		SEVERITY_ID,
+		null,
+		HighlightingGroupIds.CodeSmell,
+		"Identifiers in XML documentation should be surrounded with meta-tags",
+		"Identifiers in XML documentation should be surrounded with meta-tags",
+		Severity.SUGGESTION)]
+
     [ConfigurableSeverityHighlighting(SEVERITY_ID, CSharpLanguage.Name)]
     public class CanBeSurroundedWithMetatagsHighlight : IHighlighting
     {
-        public const string SEVERITY_ID = "WordCanBeSurroundedWithMetaTags";
+        private const string SEVERITY_ID = "WordCanBeSurroundedWithMetaTags";
 
         private const string SUGGESTION_TEXT =
             "Word '{0}' appears to be an identifier and can be surrounded with meta-tag.";

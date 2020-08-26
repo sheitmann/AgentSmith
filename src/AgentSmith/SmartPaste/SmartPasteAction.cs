@@ -16,19 +16,14 @@ using JetBrains.ReSharper.Psi.Files;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.TextControl;
 using JetBrains.TextControl.DataContext;
-using JetBrains.UI.RichText;
 using JetBrains.Util.dataStructures.TypedIntrinsics;
 using JetBrains.Util.Logging;
 
 using MessageBox = JetBrains.Util.MessageBox;
 
-#if RESHARPER20172
 using JetBrains.Application.UI.ActionsRevised.Menu;
 using JetBrains.Application.UI.Actions;
-#else
-using JetBrains.UI.ActionsRevised;
-using JetBrains.ActionManagement;
-#endif
+
 
 namespace AgentSmith.SmartPaste
 {
@@ -149,11 +144,7 @@ namespace AgentSmith.SmartPaste
         }
 
 	    private static string HtmlEncode(string text) {
-#if RESHARPER20171
 		    return System.Net.WebUtility.HtmlEncode(text);
-#else
-			return  RichTextBlockToHtml.HtmlEncode(text);
-#endif
 	    }
 
 		private static bool ShallEscape(IDocCommentNode node, int offset)

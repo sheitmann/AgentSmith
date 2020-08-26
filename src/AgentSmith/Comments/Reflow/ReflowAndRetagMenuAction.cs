@@ -10,13 +10,9 @@ using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.Resources.Shell;
 using JetBrains.Util;
 
-#if RESHARPER20172
 using JetBrains.Application.UI.ActionsRevised.Menu;
 using JetBrains.Application.UI.Actions;
-#else
-using JetBrains.UI.ActionsRevised;
-using JetBrains.ActionManagement;
-#endif
+
 
 namespace AgentSmith.Comments.Reflow
 {

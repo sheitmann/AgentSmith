@@ -149,11 +149,7 @@ namespace AgentSmith.Comments
         {
             get
             {
-#if RESHARPER20191
                 return _myLexer?.GetTokenText();
-#else
-                return _myLexer?.GetCurrTokenText();
-#endif
             }
         }
 

@@ -55,13 +55,9 @@ namespace AgentSmith.ResX
                 defaultResXDic = attributes[0].PositionParameter(0).ConstantValue.Value.ToString();
             }
 
-#if RESHARPER20173
 	        var consumer = new DefaultHighlightingConsumer(_daemonProcess.SourceFile);
-#else
-			var consumer = new DefaultHighlightingConsumer(this, _settingsStore);  
-#endif
 
-            ISpellChecker checker = SpellCheckManager.GetSpellChecker(_settingsStore, _file, defaultResXDic);
+	        ISpellChecker checker = SpellCheckManager.GetSpellChecker(_settingsStore, _file, defaultResXDic);
             if (checker != null)
             {
                 foreach (IXmlToken token in getStringsToCheck())

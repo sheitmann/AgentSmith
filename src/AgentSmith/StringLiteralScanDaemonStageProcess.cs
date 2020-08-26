@@ -63,12 +63,8 @@ namespace AgentSmith
                 return;
             }
 
-#if RESHARPER20173
 	        var consumer = new DefaultHighlightingConsumer(_daemonProcess.SourceFile);
-#else
-			var consumer = new DefaultHighlightingConsumer(this, _settingsStore);  
-#endif
-
+			
             StringSettings stringSettings = this._settingsStore.GetKey<StringSettings>(SettingsOptimization.OptimizeDefault);
 
 	        foreach (var literalExpression in file.Descendants<ICSharpLiteralExpression>()) {

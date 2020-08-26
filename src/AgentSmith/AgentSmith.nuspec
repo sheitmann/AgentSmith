@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ReSharper.AgentSmith</id>
+    <version>2020.2.0</version>
+    <title>Agent Smith</title>
+    <authors>Sven Heitmann</authors>
+    <owners>Sven Heitmann</owners>
+    <licenseUrl>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</licenseUrl>
+    <projectUrl>https://github.com/sheitmann/AgentSmith</projectUrl>
+    <!-- <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl> -->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Provides spell checking and Xml documentation assistance tools.</description>
+    <releaseNotes>### 2020.2.0 ###
+- Support for R#2020.2
+
+### 2020.1.2 ###
+- Fixed exceptions when analyzing Razor files
+
+### 2020.1.1 ###
+- Fixed assembly references
+
+### 2020.1.0 ###
+- Support for R#2020.1
+
+### 2019.3.0 ###
+- Support for R#2019.3
+
+### 2019.2.0 ###
+- Support for for R#2019.2
+
+### 2019.1.1 ###
+- Fixed ArgumentOutOfRangeException when CodeCleanup is run (issue #16)
+
+### 2019.1.0 ###
+- Support for R#2019.1
+
+### 2018.3.0 ###
+- Support for R#2018.3
+
+### 2018.2.0 ###
+- Support for for R#2018.2
+
+### 2018.1.1 ###
+- Compiled as AnyCPU again to avoid installation error
+
+### 2018.1.0 EAP 1 ###
+- Support for R#2018.1
+
+### 2017.3.0 EAP 6 ###
+- Support for R#2017.3 EAP 6
+
+### 2017.2.2 ###
+- Build against the final release of ReSharper.SDK 2017.2.0
+
+### 2017.2.1 EAP 1 ###
+- Added an option to exclude specific projects from checking for missing comments
+
+### 2017.2.0 EAP 1 ###
+- Support for for R#2017.2
+
+### 2017.1.0 ###
+- Support for R#2017.1
+
+### 2016.3.0 EAP 4 ###
+- Support for R#2016.3 EAP 4
+
+### 2016.2.2 ###
+- Support for R#2016.2 Release
+
+### 2016.2.1 RC ###
+- Support for interpolated strings added
+
+### 2016.2.0 RC ###
+- Support for R#2016.2 RC
+
+### 2016.1.1 ###
+- Support for interpolated strings added
+
+### 2016.1.0 ###
+- Support for R#2016.1
+    </releaseNotes>
+    <copyright>Copyright ©2012-2020</copyright>
+    <dependencies>
+      <dependency id="Wave" version="[202.0]" />
+    </dependencies>
+  </metadata>
+</package>

@@ -9,31 +9,19 @@ using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.Util;
 
-#if RESHARPER20161 || RESHARPER20162
-[assembly: RegisterConfigurableSeverity(
-    StringSpellCheckHighlighting.SEVERITY_ID,
-    null,
-    HighlightingGroupIds.CodeSmell,
-    "String literal word is not in dictionary",
-    "String literal word is not in dictionary",
-    Severity.SUGGESTION,
-    false)]
-#else
-[assembly: RegisterConfigurableSeverity(
-    StringSpellCheckHighlighting.SEVERITY_ID,
-    null,
-    HighlightingGroupIds.CodeSmell,
-    "String literal word is not in dictionary",
-    "String literal word is not in dictionary",
-    Severity.SUGGESTION)]
-#endif
+namespace AgentSmith.Strings {
 
-namespace AgentSmith.Strings
-{
+	[RegisterConfigurableSeverity(
+		SEVERITY_ID,
+		null,
+		HighlightingGroupIds.CodeSmell,
+		"String literal word is not in dictionary",
+		"String literal word is not in dictionary",
+		Severity.SUGGESTION)]
     [ConfigurableSeverityHighlighting(SEVERITY_ID, CSharpLanguage.Name)]
     public class StringSpellCheckHighlighting : SpellCheckHighlightBase
     {
-        public const string SEVERITY_ID = "StringLiteralsWordIsNotInDictionary";
+        private const string SEVERITY_ID = "StringLiteralsWordIsNotInDictionary";
 
         private readonly string _word;        
         private readonly TextRange _misspelledRange;

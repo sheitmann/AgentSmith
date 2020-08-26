@@ -5,10 +5,6 @@ using AgentSmith.SpellCheck.NetSpell;
 
 using JetBrains.Application.Settings;
 
-#if !RESHARPER20172
-using JetBrains.Application.Settings.Store;
-#endif
-
 using JetBrains.ReSharper.Psi.Caches;
 using JetBrains.ReSharper.Resources.Settings;
 

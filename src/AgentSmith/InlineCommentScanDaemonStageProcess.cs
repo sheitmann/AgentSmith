@@ -65,11 +65,7 @@ namespace AgentSmith
                 return;
             }
 
-#if RESHARPER20173
 	        var consumer = new DefaultHighlightingConsumer(_daemonProcess.SourceFile);
-#else
-			var consumer = new DefaultHighlightingConsumer(this, _settingsStore);  
-#endif
 
             var commentSettings = _settingsStore.GetKey<CommentSettings>(SettingsOptimization.OptimizeDefault);
 
@@ -133,11 +129,7 @@ namespace AgentSmith
             wordLexer.Start();
             while (wordLexer.TokenType != null)
             {
-#if RESHARPER20191
                 string tokenText = wordLexer.GetTokenText();
-#else
-                string tokenText = wordLexer.GetCurrTokenText();
-#endif
                 if (SpellCheckUtil.ShouldSpellCheck(tokenText, settings.CompiledWordsToIgnore) &&
                     !spellChecker.TestWord(tokenText, true))
                 {

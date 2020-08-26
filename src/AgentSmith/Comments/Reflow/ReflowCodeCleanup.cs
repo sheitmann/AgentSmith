@@ -9,10 +9,8 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Util;
-
-#if RESHARPER20172
 using JetBrains.Application.Threading;
-#endif
+
 
 namespace AgentSmith.Comments.Reflow
 {
@@ -34,9 +32,8 @@ namespace AgentSmith.Comments.Reflow
                 case CodeCleanup.DefaultProfileType.FULL:
                     profile.SetSetting(DescriptorInstance, false);
                     break;
-#if RESHARPER20191
+
                 case CodeCleanup.DefaultProfileType.CODE_STYLE:
-#endif
                 case CodeCleanup.DefaultProfileType.REFORMAT:
                     profile.SetSetting(DescriptorInstance, true);
                     break;
@@ -50,7 +47,9 @@ namespace AgentSmith.Comments.Reflow
 			return sourceFile.GetTheOnlyPsiFile(CSharpLanguage.Instance) != null;
         }
 
-        public void Process(IPsiSourceFile sourceFile, IRangeMarker rangeMarker, CodeCleanupProfile profile, IProgressIndicator progressIndicator)
+        public string Name => "Reflow XML Documentation Comments [Agent Smith]";
+
+        public void Process(IPsiSourceFile sourceFile, IRangeMarker rangeMarker, CodeCleanupProfile profile, IProgressIndicator progressIndicator, IUserDataHolder cache)
         {
 			var file = sourceFile.GetTheOnlyPsiFile(CSharpLanguage.Instance);
             if (file == null)

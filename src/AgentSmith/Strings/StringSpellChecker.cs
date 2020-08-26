@@ -57,11 +57,9 @@ namespace AgentSmith.Strings
             wordLexer.Start();
             while (wordLexer.TokenType != null)
             {
-#if RESHARPER20191
+
                 string tokenText = wordLexer.GetTokenText();
-#else
-                string tokenText = wordLexer.GetCurrTokenText();
-#endif
+
                 if (SpellCheckUtil.ShouldSpellCheck(tokenText, settings.CompiledWordsToIgnore) &&
                     !spellChecker.TestWord(tokenText, true))
                 {

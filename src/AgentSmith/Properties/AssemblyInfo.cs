@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using JetBrains.ActionManagement;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -9,12 +8,12 @@ using JetBrains.ActionManagement;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("AgentSmith")]
-[assembly: AssemblyCopyright("Copyright © ., 2012-2017")]
+[assembly: AssemblyCopyright("Copyright © 2012-2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("2017.1.1.0")]
-[assembly: AssemblyFileVersion("2017.1.1.0")]
+[assembly: AssemblyVersion("2020.2.0.0")]
+[assembly: AssemblyFileVersion("2020.2.0.0")]
 
 //[assembly: ActionsXml("AgentSmith.Actions.xml")]
 

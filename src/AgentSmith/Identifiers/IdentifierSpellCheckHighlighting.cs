@@ -9,31 +9,19 @@ using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.Tree;
 
-#if RESHARPER20161 || RESHARPER20162
-[assembly: RegisterConfigurableSeverity(
-    IdentifierSpellCheckHighlighting.SEVERITY_ID,
-    null,
-    HighlightingGroupIds.CodeSmell,
-    "Spelling errors in identifiers",
-    "Spelling errors in identifiers",
-    Severity.SUGGESTION,
-    false)]
-#else
-[assembly: RegisterConfigurableSeverity(
-    IdentifierSpellCheckHighlighting.SEVERITY_ID,
-    null,
-    HighlightingGroupIds.CodeSmell,
-    "Spelling errors in identifiers",
-    "Spelling errors in identifiers",
-    Severity.SUGGESTION)]
-#endif
+namespace AgentSmith.Identifiers {
 
-namespace AgentSmith.Identifiers
-{
+	[RegisterConfigurableSeverity(
+		SEVERITY_ID,
+		null,
+		HighlightingGroupIds.CodeSmell,
+		"Spelling errors in identifiers",
+		"Spelling errors in identifiers",
+		Severity.SUGGESTION)]
     [ConfigurableSeverityHighlighting(SEVERITY_ID, CSharpLanguage.Name)]
     public class IdentifierSpellCheckHighlighting : SpellCheckHighlightBase
     {
-        public const string SEVERITY_ID = "IdentifierWordIsNotInDictionary";
+        private const string SEVERITY_ID = "IdentifierWordIsNotInDictionary";
 
         private readonly IDeclaration _declaration;
         private readonly LexerToken _lexerToken;

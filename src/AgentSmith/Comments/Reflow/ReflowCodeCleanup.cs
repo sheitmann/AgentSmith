@@ -47,6 +47,10 @@ namespace AgentSmith.Comments.Reflow
 			return sourceFile.GetTheOnlyPsiFile(CSharpLanguage.Instance) != null;
         }
 
+        public bool IsAvailable(CodeCleanupProfile profile) {
+	        return profile.GetSetting<bool>(DescriptorInstance);
+        }
+
         public string Name => "Reflow XML Documentation Comments [Agent Smith]";
 
         public void Process(IPsiSourceFile sourceFile, IRangeMarker rangeMarker, CodeCleanupProfile profile, IProgressIndicator progressIndicator, IUserDataHolder cache)

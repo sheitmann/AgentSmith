@@ -13,11 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.ReSharper.SDK.Tests" Version="2020.2.*" />
+    <PackageReference Include="JetBrains.ReSharper.SDK.Tests" Version="2020.3.*" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AgentSmith\AgentSmith.202002.csproj" />
+    <ProjectReference Include="..\AgentSmith\AgentSmith.csproj" />
   </ItemGroup>
 
   <ItemGroup>

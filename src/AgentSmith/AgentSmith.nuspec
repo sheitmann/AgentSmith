@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ReSharper.AgentSmith</id>
-    <version>2020.2.0</version>
+    <version>2020.3.0</version>
     <title>Agent Smith</title>
     <authors>Sven Heitmann</authors>
     <owners>Sven Heitmann</owners>
@@ -11,7 +11,10 @@
     <!-- <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl> -->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Provides spell checking and Xml documentation assistance tools.</description>
-    <releaseNotes>### 2020.2.0 ###
+    <releaseNotes>### 2020.3.0 ###
+- Support for R#2020.3
+
+### 2020.2.0 ###
 - Support for R#2020.2
 
 ### 2020.1.2 ###

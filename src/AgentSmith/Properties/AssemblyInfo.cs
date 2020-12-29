@@ -12,8 +12,8 @@
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("2020.2.0.0")]
-[assembly: AssemblyFileVersion("2020.2.0.0")]
+[assembly: AssemblyVersion("2020.3.0.0")]
+[assembly: AssemblyFileVersion("2020.3.0.0")]
 
 //[assembly: ActionsXml("AgentSmith.Actions.xml")]
 

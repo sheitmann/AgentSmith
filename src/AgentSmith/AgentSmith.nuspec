@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ReSharper.AgentSmith</id>
-    <version>2020.3.1</version>
+    <version>2021.1.0</version>
     <title>Agent Smith</title>
     <authors>Sven Heitmann</authors>
     <owners>Sven Heitmann</owners>
@@ -11,7 +11,10 @@
     <!-- <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl> -->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Provides spell checking and Xml documentation assistance tools.</description>
-    <releaseNotes>### 2020.3.1 ###
+    <releaseNotes>### 2021.1.0 ###
+- Support for R#2021.1
+
+### 2020.3.1 ###
 - Fixed Wave version
 
 ### 2020.3.0 ###
@@ -88,7 +91,7 @@
     </releaseNotes>
     <copyright>Copyright ©2012-2021</copyright>
     <dependencies>
-      <dependency id="Wave" version="[203.0]" />
+      <dependency id="Wave" version="[211.0]" />
     </dependencies>
   </metadata>
 </package>

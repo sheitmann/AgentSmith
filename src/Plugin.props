@@ -1,17 +1,27 @@
-<?xml version="1.0"?>
-<package >
-  <metadata>
-    <id>ReSharper.AgentSmith</id>
-    <version>2021.1.0</version>
-    <title>Agent Smith</title>
-    <authors>Sven Heitmann</authors>
-    <owners>Sven Heitmann</owners>
-    <licenseUrl>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</licenseUrl>
-    <projectUrl>https://github.com/sheitmann/AgentSmith</projectUrl>
-    <!-- <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl> -->
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Provides spell checking and Xml documentation assistance tools.</description>
-    <releaseNotes>### 2021.1.0 ###
+﻿<Project>
+
+  <PropertyGroup>
+    <SdkVersion>2021.2.0-eap01</SdkVersion>
+
+    <!--<PackageId>ReSharper.AgentSmith</PackageId>-->
+    <Title>Agent Smith</Title>
+    <Description>Provides spell checking and Xml documentation assistance tools.</Description>
+
+    <Authors>Sven Heitmann</Authors>
+    <Copyright>Copyright ©2012-$([System.DateTime]::Now.Year)</Copyright>
+    <PackageTags></PackageTags>
+
+    <VersionPrefix>2021.2.0</VersionPrefix>
+    <VersionSuffix>pre01</VersionSuffix>
+
+    <PackageProjectUrl>https://github.com/sheitmann/AgentSmith</PackageProjectUrl>
+    <PackageLicenseUrl>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</PackageLicenseUrl>
+    <PackageIconUrl></PackageIconUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>### 2021.2.0-pre01 ###
+      - Support for R#2021.2 EAP 1
+
+### 2021.1.0 ###
 - Support for R#2021.1
 
 ### 2020.3.1 ###
@@ -87,11 +97,6 @@
 - Support for interpolated strings added
 
 ### 2016.1.0 ###
-- Support for R#2016.1
-    </releaseNotes>
-    <copyright>Copyright ©2012-2021</copyright>
-    <dependencies>
-      <dependency id="Wave" version="[211.0]" />
-    </dependencies>
-  </metadata>
-</package>
+- Support for R#2016.1</PackageReleaseNotes>
+  </PropertyGroup>
+</Project>

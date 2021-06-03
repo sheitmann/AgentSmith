@@ -1,9 +1,8 @@
+using AgentSmith.SpellCheck;
 using JetBrains.ReSharper.Psi.Parsing;
-
 using NUnit.Framework;
 
-
-namespace AgentSmith.SpellCheck {
+namespace AgentSmith.Test.SpellCheck {
 	[TestFixture]
 	public class WordLexerTest {
 		
@@ -19,7 +18,7 @@ namespace AgentSmith.SpellCheck {
 			lexer.Start();
 			int i = 0;
 			while (lexer.TokenType != null) {
-				Assert.AreEqual(tokens[i], lexer.GetCurrTokenText());
+				Assert.AreEqual(tokens[i], lexer.GetTokenText());
 				lexer.Advance();
 				i++;
 			}

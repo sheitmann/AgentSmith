@@ -1,65 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-<!--<Project Sdk="MSBuild.Sdk.Extras/1.6.68">-->
-<!--<Project Sdk="Microsoft.NET.Sdk">-->
 
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
-    <AssemblyVersion>0.0.0.1</AssemblyVersion>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <LangVersion>latest</LangVersion>
+    <TargetFramework>net472</TargetFramework>
+    <IsPackable>True</IsPackable>
+    <!--<GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
+    <DefineConstants>$(DefineConstants);RESHARPER</DefineConstants>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
     <UseWPF>true</UseWPF>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <RootNamespace>AgentSmith</RootNamespace>
     <AssemblyName>ReSharper.AgentSmith</AssemblyName>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;$(DefineConstants);</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;JET_MODE_ASSERT;$(DefineConstants);</DefineConstants>
-  </PropertyGroup>
-
   <ItemGroup>
-    <!--<None Remove="Options\AgentSmithOptionsUI.xaml" />
-    <None Remove="Options\CommentOptionsUI.xaml" />
-    <None Remove="Options\CustomDictionariesOptionsUI.xaml" />
-    <None Remove="Options\EditCustomDictionaryDialog.xaml" />
-    <None Remove="Options\IdentifierOptionsUI.xaml" />
-    <None Remove="Options\ReflowAndRetagOptionsUI.xaml" />
-    <None Remove="Options\ResXOptionsUI.xaml" />
-    <None Remove="Options\StringOptionsUI.xaml" />
-    <None Remove="Options\ThemedIcons.Options.Generated.Xaml" />
-    <None Remove="Options\XmlDocumentationOptionsUI.xaml" />-->
-  </ItemGroup>
-
-  <!--<ItemGroup>
-    <Page Include="Options\AgentSmithOptionsUI.xaml" />
-  </ItemGroup>-->
-
-  <ItemGroup>
-    <PackageReference Include="JetBrains.ReSharper.SDK" Version="2021.1.*">
-      <!--<PrivateAssets>all</PrivateAssets>-->
-      <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
+    <PackageReference Include="JetBrains.ReSharper.SDK" Version="$(SdkVersion)">
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <!-- TODO: https://github.com/NuGet/Home/issues/7154 -->
+    <PackageReference Include="Wave" Version="[$(WaveVersion),$(UpperWaveVersion))" />
   </ItemGroup>
 
-  <!--<ItemGroup>
-    <Page Include="Options\CommentOptionsUI.xaml" />
-    <Page Include="Options\CustomDictionariesOptionsUI.xaml" />
-    <Page Include="Options\EditCustomDictionaryDialog.xaml" />
-    <Page Include="Options\IdentifierOptionsUI.xaml" />
-    <Page Include="Options\ReflowAndRetagOptionsUI.xaml" />
-    <Page Include="Options\ResXOptionsUI.xaml" />
-    <Page Include="Options\StringOptionsUI.xaml" />
-    <Page Include="Options\ThemedIcons.Options.Generated.Xaml" />
-    <Page Include="Options\XmlDocumentationOptionsUI.xaml" />
-  </ItemGroup>-->
+  <ItemGroup>
+    <Content Include="$(OutputPath)$(AssemblyName).dll" PackagePath="dotFiles" Pack="true" Visible="false"/>
+    <Content Include="$(OutputPath)$(AssemblyName).pdb" PackagePath="dotFiles" Pack="true" Visible="false" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -68,6 +31,30 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
 
+  <!-- TODO: uncomment for xaml icons -->
+  <!--<ItemGroup>-->
+  <!--<Reference Include="System.Xaml" />-->
+  <!--<Reference Include="WindowsBase" />-->
+  <!--</ItemGroup>-->
+
+  <!--<ItemGroup Condition="'$(OS)' != 'Unix'">-->
+  <!--<Reference Include="PresentationCore" />-->
+  <!--<Reference Include="PresentationFramework" />-->
+
+  <!--<ThemedIconsXamlV3 Include="**\*-color.xaml">-->
+  <!--<ThemeColumns>Color</ThemeColumns>-->
+  <!--<RemoveBackgroundElement>True</RemoveBackgroundElement>-->
+  <!--<SubType>Designer</SubType>-->
+  <!--<Generator>MSBuild:Compile</Generator>-->
+  <!--</ThemedIconsXamlV3>-->
+  <!--<ThemedIconsXamlV3 Include="**\*-graydark.xaml">-->
+  <!--<ThemeColumns>GrayDark</ThemeColumns>-->
+  <!--<RemoveBackgroundElement>True</RemoveBackgroundElement>-->
+  <!--<SubType>Designer</SubType>-->
+  <!--<Generator>MSBuild:Compile</Generator>-->
+  <!--</ThemedIconsXamlV3>-->
+  <!--</ItemGroup>-->
+
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -75,9 +62,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="AgentSmith.nuspec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Content Include="dic\*.dic" PackagePath="dotFiles\dic" Pack="true" />
   </ItemGroup>
 
 </Project>

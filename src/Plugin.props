@@ -1,7 +1,7 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <SdkVersion>2021.2.0-eap01</SdkVersion>
+    <SdkVersion>2021.2.0</SdkVersion>
 
     <!--<PackageId>ReSharper.AgentSmith</PackageId>-->
     <Title>Agent Smith</Title>
@@ -12,14 +12,18 @@
     <PackageTags></PackageTags>
 
     <VersionPrefix>2021.2.0</VersionPrefix>
-    <VersionSuffix>pre01</VersionSuffix>
+    <VersionSuffix>pre02</VersionSuffix>
 
     <PackageProjectUrl>https://github.com/sheitmann/AgentSmith</PackageProjectUrl>
     <PackageLicenseUrl>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</PackageLicenseUrl>
     <PackageIconUrl></PackageIconUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>### 2021.2.0-pre01 ###
-      - Support for R#2021.2 EAP 1
+    <PackageReleaseNotes>
+### 2021.2.0-pre02 ###
+  - Support for R#2021.2 Release Version
+  
+### 2021.2.0-pre01 ###
+  - Support for R#2021.2 EAP 1
 
 ### 2021.1.0 ###
 - Support for R#2021.1

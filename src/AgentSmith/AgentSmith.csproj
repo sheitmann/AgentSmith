@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <IsPackable>True</IsPackable>
-    <!--<GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <DefineConstants>$(DefineConstants);RESHARPER</DefineConstants>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <UseWPF>true</UseWPF>
@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="$(OutputPath)$(AssemblyName).dll" PackagePath="dotFiles" Pack="true" Visible="false"/>
+    <Content Include="$(OutputPath)$(AssemblyName).dll" PackagePath="dotFiles" Pack="true" Visible="false" />
     <Content Include="$(OutputPath)$(AssemblyName).pdb" PackagePath="dotFiles" Pack="true" Visible="false" />
   </ItemGroup>
 

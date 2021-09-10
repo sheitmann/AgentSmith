@@ -248,11 +248,12 @@ namespace AgentSmith.Comments
             {
                 // Assembly is an import so no internal things allowed
                 if (elementAccessRights == AccessRights.INTERNAL) return null;
-            } 
+            }
 
-            
+            ICSharpNamespaceDeclaration declarationContainingNamespaceDeclaration = declaration.GetContainingNamespaceDeclaration();
             // Check if the given namespace is already imported in this file.
-            if (UsingUtil.CheckAlreadyImported(file, new DeclaredElementInstance(namespaceElement)) || declaration.GetContainingNamespaceDeclaration().QualifiedName.StartsWith(namespaceName))
+            if (UsingUtil.CheckAlreadyImported(file, new DeclaredElementInstance(namespaceElement))
+                || (declarationContainingNamespaceDeclaration != null && declarationContainingNamespaceDeclaration.QualifiedName.StartsWith(namespaceName)))
             {
                 string newDocId = docId[1] == ':' ? docId.Substring(2) : docId;
                 if (newDocId.StartsWith(namespaceName + ".")) newDocId = newDocId.Substring(namespaceName.Length + 1);

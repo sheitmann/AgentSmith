@@ -90,7 +90,6 @@ namespace AgentSmith.Comments.Reflow
 
         [DefaultValue(false)]
         [DisplayName(@"Reflow XML Documentation Comments")]
-        [Category(CSharpCategory)]
         private class Descriptor : CodeCleanupBoolOptionDescriptor
         {
             public Descriptor() : base("AgentSmithReflowXMLDoc") { }

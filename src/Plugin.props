@@ -25,6 +25,9 @@
 ### 2022.2.0-pre01 ###
 - Support for R#2022.2-eap01
 
+### 2022.1.0-pre01 ###
+- Support for R#2022.1
+
 ### 2021.3.0 ###
 - Support for R#2021.3
   
@@ -116,6 +119,7 @@
 - Support for interpolated strings added
 
 ### 2016.1.0 ###
-- Support for R#2016.1</PackageReleaseNotes>
+- Support for R#2016.1
+    </PackageReleaseNotes>
   </PropertyGroup>
 </Project>

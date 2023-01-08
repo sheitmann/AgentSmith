@@ -109,11 +109,13 @@ namespace AgentSmith
 		        if (settings.IgnoreVerbatimStrings) {
 			        return;
 		        }
-	        } else if (tokenNode.GetTokenType() != CSharpTokenType.STRING_LITERAL_REGULAR) {
-		        return;
-	        }
+            } else if (tokenNode.GetTokenType() != CSharpTokenType.STRING_LITERAL_REGULAR
+                       && tokenNode.GetTokenType() != CSharpTokenType.SINGLE_LINE_RAW_STRING_LITERAL
+                       && tokenNode.GetTokenType() != CSharpTokenType.MULTI_LINE_RAW_STRING_LITERAL) {
+                return;
+            }
 
-			ISpellChecker spellChecker = SpellCheckManager.GetSpellChecker(_settingsStore, _solution, settings.DictionaryNames);
+            ISpellChecker spellChecker = SpellCheckManager.GetSpellChecker(_settingsStore, _solution, settings.DictionaryNames);
 
 	        StringSpellChecker.SpellCheck(
 		        literalExpressionDocumentRange.Document,
@@ -152,10 +154,11 @@ namespace AgentSmith
 					if(settings.IgnoreVerbatimStrings) {
 						return;
 					}
-				} else if(tokenType != CSharpTokenType.INTERPOLATED_STRING_REGULAR_START
-					&& tokenType != CSharpTokenType.INTERPOLATED_STRING_REGULAR_MIDDLE
-					&& tokenType != CSharpTokenType.INTERPOLATED_STRING_REGULAR_END
-					&& tokenType != CSharpTokenType.INTERPOLATED_STRING_REGULAR) {
+                } else if(tokenType != CSharpTokenType.INTERPOLATED_STRING_REGULAR_START
+                          && tokenType != CSharpTokenType.INTERPOLATED_STRING_REGULAR_MIDDLE
+                          && tokenType != CSharpTokenType.INTERPOLATED_STRING_REGULAR_END
+                          && tokenType != CSharpTokenType.INTERPOLATED_STRING_REGULAR
+                          && tokenType != CSharpTokenType.INTERPOLATED_STRING_RAW_TEXT) {
 					continue;
 				}
 

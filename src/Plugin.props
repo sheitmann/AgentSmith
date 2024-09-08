@@ -1,7 +1,7 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <SdkVersion>2022.3.1</SdkVersion>
+    <SdkVersion>2024.2.3</SdkVersion>
 
     <!--<PackageId>ReSharper.AgentSmith</PackageId>-->
     <Title>Agent Smith</Title>
@@ -11,7 +11,7 @@
     <Copyright>Copyright ©2012-$([System.DateTime]::Now.Year)</Copyright>
     <PackageTags></PackageTags>
 
-    <VersionPrefix>2022.3.0</VersionPrefix>
+    <VersionPrefix>2024.2.0</VersionPrefix>
     <VersionSuffix>pre01</VersionSuffix>
 
     <PackageProjectUrl>https://github.com/sheitmann/AgentSmith</PackageProjectUrl>
@@ -19,6 +19,9 @@
     <PackageIconUrl></PackageIconUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
+### 2024.2.0-pre01 ###
+- Support for R#2024.2.3 (ticket #24)
+
 ### 2022.3.0-pre01 ###
 - Support for R#2022.3
 - Added spell checking for raw string literals

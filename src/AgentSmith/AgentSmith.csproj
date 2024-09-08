@@ -65,4 +65,8 @@
     <Content Include="dic\*.dic" PackagePath="dotFiles\dic" Pack="true" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" />
+  </ItemGroup>
+
 </Project>

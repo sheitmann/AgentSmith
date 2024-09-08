@@ -130,57 +130,65 @@ namespace AgentSmith.Comments
 
         private IEnumerable<Range> GetWordsFromXmlComment(IDocCommentBlock docBlock)
         {
-            if (docBlock != null)
+            if (docBlock == null) 
             {
-                XmlDocLexer lexer = new XmlDocLexer(docBlock);
-                lexer.Start();
-                int inCode = 0;
-                while (lexer.TokenType != null)
+                yield break;
+            }
+
+            XmlDocLexer lexer = new XmlDocLexer(docBlock);
+            lexer.Start();
+            int inCode = 0;
+            while (lexer.TokenType != null)
+            {
+                if (lexer.TokenType == lexer.XmlTokenType.TAG_START)
                 {
-                    if (lexer.TokenType == lexer.XmlTokenType.TAG_START)
-                    {
-                        lexer.Advance();
-                        if (lexer.TokenType == lexer.XmlTokenType.IDENTIFIER &&
-                            (lexer.TokenText == "code" || lexer.TokenText == "c"))
-                        {
-                            inCode++;
-                        }
-
-                        while (lexer.TokenType != lexer.XmlTokenType.TAG_END &&
-                               lexer.TokenType != lexer.XmlTokenType.TAG_END1 &&
-                               lexer.TokenType != null)
-                            lexer.Advance();
-
-                        if (lexer.TokenType == lexer.XmlTokenType.TAG_END1)
-                        {
-                            inCode--;
-                        }
-                    }
-                    if (lexer.TokenType == lexer.XmlTokenType.TAG_START1)
-                    {
-                        lexer.Advance();
-                        if (lexer.TokenType == lexer.XmlTokenType.IDENTIFIER &&
-                            (lexer.TokenText == "code" || lexer.TokenText == "c"))
-                        {
-                            inCode--;
-                        }
-                    }
-                    if (lexer.TokenType == lexer.XmlTokenType.TEXT && inCode == 0)
-                    {
-                        ILexer wordLexer = new WordLexer(lexer.TokenText);
-                        wordLexer.Start();
-                        while (wordLexer.TokenType != null)
-                        {
-                            string tokenText = wordLexer.GetTokenText();
-
-                            int start = lexer.CurrentNode.GetTreeStartOffset().Offset + lexer.TokenStart + wordLexer.TokenStart;
-                            int end = start + tokenText.Length;
-                            yield return new Range(tokenText, new TreeTextRange(new TreeOffset(start), new TreeOffset(end)));
-                            wordLexer.Advance();
-                        }
-                    }
                     lexer.Advance();
+                    string tagName = lexer.TokenText;
+                    if (lexer.TokenType == lexer.XmlTokenType.IDENTIFIER && IsCodeTag(tagName))
+                    {
+                        inCode++;
+                    }
+
+                    while (lexer.TokenType != lexer.XmlTokenType.TAG_END &&
+                           lexer.TokenType != lexer.XmlTokenType.TAG_END1 &&
+                           lexer.TokenType != null)
+                    {
+                        lexer.Advance();
+                    }
+
+                    if (lexer.TokenType == lexer.XmlTokenType.TAG_END1 && IsCodeTag(tagName))
+                    {
+                        inCode--;
+                    }
                 }
+                if (lexer.TokenType == lexer.XmlTokenType.TAG_START1)
+                {
+                    lexer.Advance();
+                    if (lexer.TokenType == lexer.XmlTokenType.IDENTIFIER && IsCodeTag(lexer.TokenText))
+                    {
+                        inCode--;
+                    }
+                }
+                if (lexer.TokenType == lexer.XmlTokenType.TEXT && inCode == 0)
+                {
+                    ILexer wordLexer = new WordLexer(lexer.TokenText);
+                    wordLexer.Start();
+                    while (wordLexer.TokenType != null)
+                    {
+                        string tokenText = wordLexer.GetTokenText();
+
+                        int start = lexer.CurrentNode.GetTreeStartOffset().Offset + lexer.TokenStart + wordLexer.TokenStart;
+                        int end = start + tokenText.Length;
+                        yield return new Range(tokenText, new TreeTextRange(new TreeOffset(start), new TreeOffset(end)));
+                        wordLexer.Advance();
+                    }
+                }
+                lexer.Advance();
+            }
+
+            bool IsCodeTag(string tagName)
+            {
+                return (tagName == "code" || tagName == "c");
             }
         }
 

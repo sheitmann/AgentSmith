@@ -1,7 +1,7 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <SdkVersion>2022.2.4</SdkVersion>
+    <SdkVersion>2022.3.1</SdkVersion>
 
     <!--<PackageId>ReSharper.AgentSmith</PackageId>-->
     <Title>Agent Smith</Title>
@@ -11,14 +11,19 @@
     <Copyright>Copyright ©2012-$([System.DateTime]::Now.Year)</Copyright>
     <PackageTags></PackageTags>
 
-    <VersionPrefix>2022.2.1</VersionPrefix>
-    <VersionSuffix></VersionSuffix>
+    <VersionPrefix>2022.3.0</VersionPrefix>
+    <VersionSuffix>pre01</VersionSuffix>
 
     <PackageProjectUrl>https://github.com/sheitmann/AgentSmith</PackageProjectUrl>
     <PackageLicenseUrl>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</PackageLicenseUrl>
     <PackageIconUrl></PackageIconUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
+### 2022.3.0-pre01 ###
+- Support for R#2022.3
+- Added spell checking for raw string literals
+- Fixed Bug #20 (Meta-tag suggestions aren't present if preceding meta-tag exists)
+
 ### 2022.2.1 ###
 - Published as Release Version
 

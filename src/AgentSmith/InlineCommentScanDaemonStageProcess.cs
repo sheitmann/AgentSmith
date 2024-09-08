@@ -75,7 +75,7 @@ namespace AgentSmith
             
             try
             {
-                commiter(new DaemonStageResult(consumer.Highlightings));
+                commiter(new DaemonStageResult(consumer.CollectHighlightings()));
             }
             catch
             {

@@ -28,7 +28,7 @@ namespace AgentSmith.Comments
 
             if (methodDecl != null)
             {
-                foreach (IRegularParameterDeclaration parm in methodDecl.ParameterDeclarations)
+                foreach (ILocalRegularParameterDeclaration parm in methodDecl.ParameterDeclarations)
                 {
                     if (parm.DeclaredName == word)
                     {

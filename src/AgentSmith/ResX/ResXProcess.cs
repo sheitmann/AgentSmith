@@ -84,7 +84,7 @@ namespace AgentSmith.ResX
                 }
             }
 			
-            action(new DaemonStageResult(consumer.Highlightings));            
+            action(new DaemonStageResult(consumer.CollectHighlightings()));            
         }
 
         public IDaemonProcess DaemonProcess { get { return _daemonProcess; } }

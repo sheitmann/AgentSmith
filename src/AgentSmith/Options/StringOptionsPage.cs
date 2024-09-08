@@ -16,6 +16,9 @@ using JetBrains.Application.UI.UIAutomation;
 
 
 using Lifetime = JetBrains.Lifetimes.Lifetime;
+using JetBrains.UI.DataFlow;
+using static JetBrains.UI.Options.Helpers.Controls;
+using CheckBox = System.Windows.Controls.CheckBox;
 
 
 namespace AgentSmith.Options {
@@ -48,15 +51,19 @@ namespace AgentSmith.Options {
 		public string Id => PID;
 
 		#endregion
-		
-		private void InitializeOptionsUI(Lifetime lifetime) {
-			_settings.SetBinding<StringSettings, string>(
-				lifetime, x => x.DictionaryName, _optionsUI.txtDictionaryName, TextBox.TextProperty);
-			_settings.SetBinding<StringSettings, bool?>(
-				lifetime, x => x.IgnoreVerbatimStrings, _optionsUI.chkIgnoreVerbatimStrings, CheckBox.IsCheckedProperty);
-			_settings.SetBinding<StringSettings, string>(
-				lifetime, x => x.WordsToIgnore, _optionsUI.txtWordsToIgnore, TextBox.TextProperty);
-		}
 
-	}
+        private void InitializeOptionsUI(Lifetime lifetime)
+        {
+            _settings.SetBinding<StringSettings, string>(lifetime, x => x.DictionaryName,
+                DependencyPropertyWrapper.Create<string>(lifetime, _optionsUI.txtDictionaryName, TextBox.TextProperty,
+                    true));
+            _settings.SetBinding<StringSettings, bool?>(lifetime, x => x.IgnoreVerbatimStrings,
+                DependencyPropertyWrapper.Create<bool?>(lifetime, _optionsUI.chkIgnoreVerbatimStrings,
+                    CheckBox.IsCheckedProperty, true));
+            _settings.SetBinding<StringSettings, string>(lifetime, x => x.WordsToIgnore,
+                DependencyPropertyWrapper.Create<string>(lifetime, _optionsUI.txtWordsToIgnore, TextBox.TextProperty,
+                    true));
+        }
+
+    }
 }

@@ -12,13 +12,16 @@
     <PackageTags></PackageTags>
 
     <VersionPrefix>2024.2.0</VersionPrefix>
-    <VersionSuffix>pre01</VersionSuffix>
+    <VersionSuffix></VersionSuffix>
 
     <PackageProjectUrl>https://github.com/sheitmann/AgentSmith</PackageProjectUrl>
     <PackageLicenseUrl>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</PackageLicenseUrl>
     <PackageIconUrl></PackageIconUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
+### 2024.2.0 ###
+- Fixed Bug #27 (InvalidCastException in IdentifierResolver) - thanks to sirduke
+
 ### 2024.2.0-pre01 ###
 - Support for R#2024.2.3 (ticket #24)
 

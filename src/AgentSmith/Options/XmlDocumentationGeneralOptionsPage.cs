@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using JetBrains.Application.Settings;
 using JetBrains.Application.UI.Components;
 using JetBrains.Application.UI.Options;
+using JetBrains.UI.DataFlow;
 using Lifetime = JetBrains.Lifetimes.Lifetime;
 
 
@@ -40,20 +41,33 @@ namespace AgentSmith.Options {
 
 		#endregion
 
-		private void InitializeOptionsUI(Lifetime lifetime) {
-			_settings.SetBinding<XmlDocumentationSettings, string>(
-				lifetime, x => x.DictionaryName, _optionsUI.txtDictionaryName, TextBox.TextProperty);
-			_settings.SetBinding<XmlDocumentationSettings, bool?>(
-				lifetime, x => x.SuppressIfBaseHasComment, _optionsUI.chkSuppressIfBaseHasComment, CheckBox.IsCheckedProperty);
-			_settings.SetBinding<XmlDocumentationSettings, int>(
-				lifetime, x => x.MaxCharactersPerLine, _optionsUI.txtMaxCharsPerLine, IntegerTextBox.ValueProperty);
-			_settings.SetBinding<XmlDocumentationSettings, string>(
-				lifetime, x => x.WordsToIgnore, _optionsUI.txtWordsToIgnore, TextBox.TextProperty);
-			_settings.SetBinding<XmlDocumentationSettings, string>(
-				lifetime, x => x.WordsToIgnoreForMetatagging, _optionsUI.txtWordsToIgnoreForMetatagging, TextBox.TextProperty);
-			_settings.SetBinding<XmlDocumentationSettings, string>(
-				lifetime, x => x.ProjectNamesToIgnore, _optionsUI.txtProjectNamesToIgnore, TextBox.TextProperty);
-		}
+        private void InitializeOptionsUI(Lifetime lifetime)
+        {
+            _settings.SetBinding<XmlDocumentationSettings, string>(
+                lifetime, x => x.DictionaryName,
+                DependencyPropertyWrapper.Create<string>(lifetime, _optionsUI.txtDictionaryName, TextBox.TextProperty,
+                    true));
+            _settings.SetBinding<XmlDocumentationSettings, bool?>(
+                lifetime, x => x.SuppressIfBaseHasComment,
+                DependencyPropertyWrapper.Create<bool?>(lifetime, _optionsUI.chkSuppressIfBaseHasComment,
+                    CheckBox.IsCheckedProperty, true));
+            _settings.SetBinding<XmlDocumentationSettings, int>(
+                lifetime, x => x.MaxCharactersPerLine,
+                DependencyPropertyWrapper.Create<int>(lifetime, _optionsUI.txtMaxCharsPerLine,
+                    IntegerTextBox.ValueProperty, true));
+            _settings.SetBinding<XmlDocumentationSettings, string>(
+                lifetime, x => x.WordsToIgnore,
+                DependencyPropertyWrapper.Create<string>(lifetime, _optionsUI.txtWordsToIgnore, TextBox.TextProperty,
+                    true));
+            _settings.SetBinding<XmlDocumentationSettings, string>(
+                lifetime, x => x.WordsToIgnoreForMetatagging,
+                DependencyPropertyWrapper.Create<string>(lifetime, _optionsUI.txtWordsToIgnoreForMetatagging,
+                    TextBox.TextProperty, true));
+            _settings.SetBinding<XmlDocumentationSettings, string>(
+                lifetime, x => x.ProjectNamesToIgnore,
+                DependencyPropertyWrapper.Create<string>(lifetime, _optionsUI.txtProjectNamesToIgnore,
+                    TextBox.TextProperty, true));
+        }
 
-	}
+    }
 }

@@ -4,6 +4,8 @@ using System.Windows.Controls;
 using JetBrains.Annotations;
 using JetBrains.Application.Settings;
 using JetBrains.Application.UI.Options;
+using JetBrains.DataFlow;
+using JetBrains.UI.DataFlow;
 using Lifetime = JetBrains.Lifetimes.Lifetime;
 
 
@@ -38,12 +40,15 @@ namespace AgentSmith.Options {
 
 		#endregion
 
-		private void InitializeOptionsUI(Lifetime lifetime) {
-			_settings.SetBinding<CommentSettings, string>(
-				lifetime, x => x.DictionaryName, _optionsUI.txtDictionaryName, TextBox.TextProperty);
-			_settings.SetBinding<CommentSettings, string>(
-				lifetime, x => x.WordsToIgnore, _optionsUI.txtWordsToIgnore, TextBox.TextProperty);
-		}
+        private void InitializeOptionsUI(Lifetime lifetime)
+        {
+            _settings.SetBinding<CommentSettings, string>(lifetime, x => x.DictionaryName,
+                DependencyPropertyWrapper.Create<string>(lifetime, _optionsUI.txtDictionaryName, TextBox.TextProperty,
+                    true));
+            _settings.SetBinding<CommentSettings, string>(lifetime, x => x.WordsToIgnore,
+                DependencyPropertyWrapper.Create<string>(lifetime, _optionsUI.txtWordsToIgnore, TextBox.TextProperty,
+                    true));
+        }
 
-	}
+    }
 }

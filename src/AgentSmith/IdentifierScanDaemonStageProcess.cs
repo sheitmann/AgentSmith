@@ -142,7 +142,7 @@ namespace AgentSmith
 	        if (_daemonProcess.InterruptFlag) return;
             try
             {
-                commiter(new DaemonStageResult(consumer.Highlightings));
+                commiter(new DaemonStageResult(consumer.CollectHighlightings()));
             } catch
             {
                 // Do nothing if it doesn't work.
